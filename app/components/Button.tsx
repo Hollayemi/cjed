@@ -26,13 +26,13 @@ export default function Button({
 
     const variants = {
         primary:
-            "bg-[#0E3B2E] text-white hover:bg-[#174d3d] active:scale-[0.97]",
+            "bg-[#0068C1] text-white hover:bg-[#174d3d] active:scale-[0.97]",
         secondary:
-            "bg-[#D7A441] text-[#0E3B2E] hover:bg-[#e8bc6a] active:scale-[0.97]",
+            "bg-[#D7A441] text-[#0068C1] hover:bg-[#e8bc6a] active:scale-[0.97]",
         outline:
-            "border-2 border-[#0E3B2E] text-[#0E3B2E] hover:bg-[#0E3B2E] hover:text-white active:scale-[0.97]",
+            "border-2 border-[#0068C1] text-[#0068C1] hover:bg-[#0068C1] hover:text-white active:scale-[0.97]",
         ghost:
-            "text-[#0E3B2E] hover:bg-[#0E3B2E]/8 active:scale-[0.97]",
+            "text-[#0068C1] hover:bg-[#0068C1]/8 active:scale-[0.97]",
     };
 
     const sizes = {

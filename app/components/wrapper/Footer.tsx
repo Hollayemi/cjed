@@ -28,7 +28,7 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-[#D7A441] flex items-center justify-center flex-shrink-0">
-                <Scale className="w-5 h-5 text-[#0E3B2E]" />
+                <Scale className="w-5 h-5 text-[#0068C1]" />
               </div>
               <div>
                 <div

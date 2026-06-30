@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { fadeUp, stagger } from "@/lib/animation";
+import { fadeUp, stagger } from "@/app/lib/animation";
 
 interface SectionHeadingProps {
   eyebrow?: string;
@@ -41,7 +41,7 @@ export default function SectionHeading({
       <motion.h2
         variants={fadeUp}
         className={`text-3xl md:text-4xl lg:text-5xl leading-tight ${
-          light ? "text-white" : "text-[#0E3B2E]"
+          light ? "text-white" : "text-[#0068C1]"
         }`}
         style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
       >

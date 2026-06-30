@@ -6,7 +6,7 @@ interface BadgeProps {
 
 export default function Badge({ children, variant = "neutral", className }: BadgeProps) {
   const variants = {
-    forest: "bg-[#0E3B2E]/10 text-[#0E3B2E]",
+    forest: "bg-[#0068C1]/10 text-[#0068C1]",
     gold: "bg-[#D7A441]/15 text-[#b88520]",
     neutral: "bg-gray-100 text-gray-600",
   };
