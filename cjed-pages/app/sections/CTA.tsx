@@ -13,7 +13,7 @@ export default function CTA() {
         <div className="relative rounded-3xl overflow-hidden bg-[#0068C1] px-8 py-16 lg:px-16 lg:py-20">
           {/* Background decoration */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#D7A441]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#f7cb06]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
             <div
               className="absolute inset-0 opacity-[0.03]"
@@ -29,7 +29,7 @@ export default function CTA() {
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block text-xs font-semibold tracking-widest uppercase text-[#D7A441]"
+              className="inline-block text-xs font-semibold tracking-widest uppercase text-[#f7cb06]"
             >
               Get Involved
             </motion.span>
@@ -59,7 +59,7 @@ export default function CTA() {
               <motion.div variants={fadeUp}>
                 <Link
                   href={siteConfig.volunteerLink}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#D7A441] text-[#0068C1] text-sm font-bold hover:bg-[#e8bc6a] active:scale-[0.97] transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-bold hover:bg-[#e8bc6a] active:scale-[0.97] transition-all duration-200"
                 >
                   Volunteer
                 </Link>

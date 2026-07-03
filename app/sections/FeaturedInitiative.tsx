@@ -26,7 +26,7 @@ export default function FeaturedInitiative() {
           {/* Content side */}
           <div className="bg-[#F5F7F8] p-10 lg:p-14 flex flex-col justify-center gap-7">
             <Reveal>
-              <span className="text-xs font-semibold tracking-widest uppercase text-[#D7A441]">
+              <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06]">
                 Operation Justice Reach
               </span>
             </Reveal>
@@ -66,7 +66,7 @@ export default function FeaturedInitiative() {
             <Reveal delay={0.3}>
               <a
                 href="/news/landmark-ruling-displaced-families"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0068C1] text-white text-sm font-semibold hover:bg-[#174d3d] transition-all duration-200 w-fit"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0068C1] text-white text-sm font-semibold hover:bg-[#0759a1] transition-all duration-200 w-fit"
               >
                 Read the Story <ArrowRight className="w-4 h-4" />
               </a>

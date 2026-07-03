@@ -36,7 +36,7 @@ export default function ProgramsPageContent() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] block mb-5"
+              className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-5"
             >
               What We Do
             </motion.span>
@@ -90,7 +90,7 @@ export default function ProgramsPageContent() {
                 {/* Content */}
                 <div className={`flex flex-col gap-6 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                   <Reveal>
-                    <span className="text-xs font-semibold tracking-widest uppercase text-[#D7A441]">
+                    <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06]">
                       Program 0{i + 1}
                     </span>
                   </Reveal>

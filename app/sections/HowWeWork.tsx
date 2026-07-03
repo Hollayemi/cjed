@@ -78,7 +78,7 @@ export default function HowWeWork() {
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.12, type: "spring", stiffness: 200 }}
-                      className="w-12 h-12 rounded-full bg-white border-2 border-[#0068C1]/20 group-hover:border-[#D7A441] group-hover:bg-[#D7A441] transition-all duration-300 flex items-center justify-center shadow-sm"
+                      className="w-12 h-12 rounded-full bg-white border-2 border-[#0068C1]/20 group-hover:border-[#f7cb06] group-hover:bg-[#f7cb06] transition-all duration-300 flex items-center justify-center shadow-sm"
                     >
                       <span className="text-xs font-bold text-[#0068C1] group-hover:text-white transition-colors">
                         {step.number}
@@ -89,7 +89,7 @@ export default function HowWeWork() {
                   {/* Content */}
                   <div className="flex flex-col gap-2 pt-2 pb-2">
                     <div className="flex items-center gap-3 sm:hidden">
-                      <span className="text-xs font-bold text-[#D7A441]">{step.number}</span>
+                      <span className="text-xs font-bold text-[#f7cb06]">{step.number}</span>
                     </div>
                     <h3
                       className="text-lg font-semibold text-[#111827] group-hover:text-[#0068C1] transition-colors"

@@ -4,14 +4,21 @@ import { siteConfig } from "@/app/config/site";
 import SectionHeading from "@/app/components/SectionHeading";
 import Reveal from "@/app/components/Reveal";
 import Container from "@/app/components/Container";
-import { stagger, fadeUp, slideRight } from "@/app/data/animation";
+import { stagger, fadeUp,  } from "@/app/data/animation";
+import {
+  Scale,
+  ShieldCheck,
+  Handshake,
+  Award,
+  Users,
+} from "lucide-react";
 
-const valueIcons: Record<string, string> = {
-  Justice: "⚖️",
-  Integrity: "🛡️",
-  Inclusion: "🤝",
-  Excellence: "✦",
-  Community: "🌱",
+const valueIcons: Record<string, any> = {
+  Justice: <Scale />,
+  Integrity: <ShieldCheck />,
+  Inclusion: <Handshake />,
+  Excellence: <Award />,
+  Community: <Users />,
 };
 
 export default function About() {
@@ -46,7 +53,7 @@ export default function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="absolute -bottom-6 -right-4 lg:-right-8 bg-[#D7A441] rounded-2xl px-6 py-4 shadow-xl"
+                className="absolute -bottom-6 -right-4 lg:-right-8 bg-[#f7cb06] rounded-2xl px-6 py-4 shadow-xl"
               >
                 <p className="text-[#0068C1] text-xs font-semibold tracking-wider uppercase mb-1">
                   Registration
@@ -67,7 +74,7 @@ export default function About() {
             {/* Vision */}
             <Reveal delay={0.15}>
               <div className="p-6 rounded-2xl bg-[#F5F7F8] border border-gray-100">
-                <h4 className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] mb-3">
+                <h4 className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] mb-3">
                   Our Vision
                 </h4>
                 <p className="text-gray-600 text-sm leading-relaxed">{siteConfig.vision}</p>

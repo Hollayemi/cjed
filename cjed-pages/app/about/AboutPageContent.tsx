@@ -9,9 +9,9 @@ import { stagger, fadeUp } from "@/app/data/animation";
 
 const valueColors: Record<string, string> = {
   Justice: "#0068C1",
-  Integrity: "#174d3d",
+  Integrity: "#0759a1",
   Inclusion: "#1a5c48",
-  Excellence: "#D7A441",
+  Excellence: "#f7cb06",
   Community: "#b88520",
 };
 
@@ -49,7 +49,7 @@ export default function AboutPageContent() {
               backgroundSize: "28px 28px",
             }}
           />
-          <div className="absolute bottom-0 right-0 w-96 h-64 bg-[#D7A441]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-64 bg-[#f7cb06]/10 rounded-full blur-3xl" />
         </div>
         <Container>
           <motion.div
@@ -60,7 +60,7 @@ export default function AboutPageContent() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] block mb-5"
+              className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-5"
             >
               About CJED
             </motion.span>
@@ -84,7 +84,7 @@ export default function AboutPageContent() {
           <div className="grid lg:grid-cols-2 gap-8">
             <Reveal>
               <div className="p-8 lg:p-10 rounded-3xl bg-[#0068C1] text-white">
-                <span className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] block mb-4">
+                <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-4">
                   Our Mission
                 </span>
                 <p className="text-white/80 text-base leading-relaxed">{siteConfig.mission}</p>
@@ -92,7 +92,7 @@ export default function AboutPageContent() {
             </Reveal>
             <Reveal delay={0.1}>
               <div className="p-8 lg:p-10 rounded-3xl bg-[#F5F7F8] border border-gray-100">
-                <span className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] block mb-4">
+                <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-4">
                   Our Vision
                 </span>
                 <p
@@ -181,7 +181,7 @@ export default function AboutPageContent() {
                   >
                     {member.name}
                   </h3>
-                  <p className="text-xs font-semibold text-[#D7A441] uppercase tracking-wide mb-3">
+                  <p className="text-xs font-semibold text-[#f7cb06] uppercase tracking-wide mb-3">
                     {member.role}
                   </p>
                   <p className="text-sm text-gray-500">{member.bio}</p>

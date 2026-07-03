@@ -19,7 +19,7 @@ export default function Impact() {
             backgroundSize: "28px 28px",
           }}
         />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#D7A441]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#f7cb06]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
       </div>
 
@@ -48,7 +48,7 @@ export default function Impact() {
               className="flex flex-col items-center text-center p-8 rounded-3xl bg-white/6 border border-white/10 hover:bg-white/10 transition-colors duration-300"
             >
               <div
-                className="text-4xl lg:text-5xl font-bold text-[#D7A441] mb-2 tabular-nums"
+                className="text-4xl lg:text-5xl font-bold text-[#f7cb06] mb-2 tabular-nums"
                 style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
               >
                 <AnimatedCounter to={s.value} suffix={s.suffix} />
@@ -66,7 +66,7 @@ export default function Impact() {
             </p>
             <a
               href="/impact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#D7A441] text-[#D7A441] text-sm font-semibold hover:bg-[#D7A441] hover:text-[#0068C1] transition-all duration-200 flex-shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#f7cb06] text-[#f7cb06] text-sm font-semibold hover:bg-[#f7cb06] hover:text-[#0068C1] transition-all duration-200 flex-shrink-0"
             >
               See Full Impact Report
             </a>

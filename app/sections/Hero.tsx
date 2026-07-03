@@ -22,7 +22,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8 w-full pt-28 pb-20 lg:pt-32 lg:pb-28">
+      <div className="relative mx-auto max-w-7xl px-5 md:px-6 lg:px-8 w-full pt-28 pb-20 lg:pt-32 lg:pb-28">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-12 items-center">
           {/* Left */}
           <motion.div
@@ -33,18 +33,18 @@ export default function Hero() {
           >
             <motion.div variants={fadeUp}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0068C1]/8 text-[#0068C1] text-xs font-semibold tracking-widest uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D7A441] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f7cb06] animate-pulse" />
                 Legal Aid · Education · Community
               </span>
             </motion.div>
 
             <motion.h1
               variants={fadeUp}
-              className="text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#111827]"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-[#111827]"
               style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
             >
               Justice should never depend on{" "}
-              <span className="text-[#0068C1] italic">privilege.</span>
+              <span className="text-primary! italic">privilege.</span>
             </motion.h1>
 
             <motion.p
@@ -56,17 +56,17 @@ export default function Hero() {
               the law and the people it is meant to protect.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+            <motion.div variants={fadeUp} className="flex gap-2 md:gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#0068C1] text-white text-sm font-semibold hover:bg-[#174d3d] transition-all duration-200 active:scale-[0.97]"
+                className="inline-flex items-center gap-2 px-4 md:px-7 py-3.5 rounded-full bg-[#0068C1] text-white text-sm font-semibold hover:bg-[#0759a1] transition-all duration-200 active:scale-[0.97]"
               >
                 Get Legal Help
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-[#0068C1]/30 text-[#0068C1] text-sm font-semibold hover:border-[#0068C1] hover:bg-[#0068C1]/5 transition-all duration-200"
+                className="inline-flex items-center gap-2 px-4 md:px-7 py-3.5 rounded-full border border-[#0068C1]/30 text-[#0068C1] text-sm font-semibold hover:border-[#0068C1] hover:bg-[#0068C1]/5 transition-all duration-200"
               >
                 Learn More
               </Link>
@@ -77,7 +77,7 @@ export default function Hero() {
           <div className="relative flex items-center justify-center h-[480px] lg:h-[520px]">
             {/* Decorative circle */}
             <div className="absolute w-80 h-80 rounded-full border border-[#0068C1]/8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-            <div className="absolute w-56 h-56 rounded-full border border-[#D7A441]/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute w-56 h-56 rounded-full border border-[#f7cb06]/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
             {/* Central seal */}
             <motion.div
@@ -88,7 +88,7 @@ export default function Hero() {
             >
                 <img src="/images/logo.png" className="w-full h-full"/>
               {/* <span
-                className="text-[#D7A441] text-2xl font-bold"
+                className="text-[#f7cb06] text-2xl font-bold"
                 style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
               >
                 CJED
@@ -123,15 +123,15 @@ export default function Hero() {
               initial={{ opacity: 0, x: 30, y: -20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: 0.65, duration: 0.7 }}
-              className="absolute top-16 right-4 lg:right-0"
+              className="absolute hidden md:block top-16 right-4 lg:right-0"
             >
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: [0.42, 0, 0.58, 1], delay: 0.5 }}
                 className="bg-[#0068C1] rounded-2xl px-5 py-4 shadow-lg shadow-[#0068C1]/25 flex items-center gap-3"
               >
-                <div className="w-8 h-8 rounded-full bg-[#D7A441]/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-[#D7A441] font-bold text-sm">{heroStats[1].value}</span>
+                <div className="w-8 h-8 rounded-full bg-[#f7cb06]/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-[#f7cb06] font-bold text-sm">{heroStats[1].value}</span>
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">{heroStats[1].label}</p>
@@ -149,12 +149,12 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: [0.42, 0, 0.58, 1], delay: 1 }}
-                className="bg-white rounded-2xl px-6 py-4 shadow-lg shadow-black/8 border border-gray-100 flex items-center gap-3"
+                className="bg-white min-w-40 rounded-2xl px-4 md:px-6 py-4 shadow-lg shadow-black/8 border border-gray-100 flex items-center gap-3"
               >
-                <div className="w-8 h-8 rounded-full bg-[#D7A441] flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#f7cb06] flex items-center justify-center flex-shrink-0">
                   <span className="text-white font-bold text-sm">{heroStats[2].value}</span>
                 </div>
-                <div>
+                <div className="w-auto min-w-46">
                   <p className="text-sm font-semibold text-gray-800">{heroStats[2].label}</p>
                   <p className="text-xs text-gray-400">Delivered this year</p>
                 </div>
@@ -165,7 +165,7 @@ export default function Hero() {
             <motion.div
               animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 3, repeat: Infinity, ease: [0.42, 0, 0.58, 1] }}
-              className="absolute top-32 right-20 w-2.5 h-2.5 rounded-full bg-[#D7A441]"
+              className="absolute top-32 right-20 w-2.5 h-2.5 rounded-full bg-[#f7cb06]"
             />
             <motion.div
               animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.9, 0.4] }}
@@ -176,21 +176,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: [0.42, 0, 0.58, 1] }}
-          className="w-5 h-8 rounded-full border-2 border-[#0068C1]/20 flex items-start justify-center pt-1.5"
-        >
-          <div className="w-1 h-2 rounded-full bg-[#0068C1]/40" />
-        </motion.div>
-      </motion.div>
+     
     </section>
   );
 }

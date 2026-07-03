@@ -42,6 +42,10 @@ export default function Navbar() {
     ? "text-white/80 hover:text-white hover:bg-white/10"
     : "text-[#0068C1] hover:bg-[#0068C1]/8";
 
+const navLogoClass = isDarkHero && !scrolled
+    ? "invert"
+    : "";
+
   const activeClass = scrolled
     ? "bg-[#0068C1] text-white"
     : isDarkHero
@@ -81,20 +85,20 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4 gap-6">
+          <div className="flex items-center justify-between py-2 gap-6">
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-              <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 relative bg-[#0068C1]">
+              <div className="w-20 h-16 rounded-xl overflow-hidden flex-shrink-0 relative">
                 <Image
                   src="/images/logo.png"
                   alt={siteConfig.shortName}
                   fill
-                  className="object-contain p-1"
+                  className={`${navLogoClass} object-contain p-1`}
                   onError={() => {}} // silently fallback — div bg-color shows
                 />
               </div>
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <span
                   className={`text-sm font-bold leading-tight tracking-wide transition-colors duration-300 ${logoTextClass}`}
                   style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
@@ -104,7 +108,7 @@ export default function Navbar() {
                 <span className={`text-[10px] leading-none tracking-wide hidden sm:block transition-colors duration-300 ${subTextClass}`}>
                   {siteConfig.registration}
                 </span>
-              </div>
+              </div> */}
             </Link>
 
             {/* Desktop nav */}
@@ -126,7 +130,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
               <Link
                 href={siteConfig.donateLink}
-                className="px-5 py-2.5 rounded-full bg-[#D7A441] text-[#0068C1] text-sm font-semibold hover:bg-[#e8bc6a] active:scale-95 transition-all duration-200"
+                className="px-5 py-2.5 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-semibold hover:bg-[#e8bc6a] active:scale-95 transition-all duration-200"
               >
                 Donate
               </Link>
@@ -183,7 +187,7 @@ export default function Navbar() {
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-gray-100">
                 <Link
                   href={siteConfig.donateLink}
-                  className="px-5 py-3 rounded-full bg-[#D7A441] text-[#0068C1] text-sm font-semibold text-center"
+                  className="px-5 py-3 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-semibold text-center"
                 >
                   Donate
                 </Link>

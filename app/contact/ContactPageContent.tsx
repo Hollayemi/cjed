@@ -20,26 +20,26 @@ const enquiryTypes = [
 
 const officeInfo = [
   {
-    icon: <MapPin className="w-5 h-5 text-[#D7A441]" />,
+    icon: <MapPin className="w-5 h-5 text-[#f7cb06]" />,
     label: "Office Address",
     value: siteConfig.address,
     sub: "By appointment — Mon to Fri, 9am – 5pm",
   },
   {
-    icon: <Mail className="w-5 h-5 text-[#D7A441]" />,
+    icon: <Mail className="w-5 h-5 text-[#f7cb06]" />,
     label: "Email",
     value: siteConfig.email,
     href: `mailto:${siteConfig.email}`,
   },
   {
-    icon: <Phone className="w-5 h-5 text-[#D7A441]" />,
+    icon: <Phone className="w-5 h-5 text-[#f7cb06]" />,
     label: "Phone",
     value: siteConfig.phone,
     href: `tel:${siteConfig.phone}`,
     sub: "Mon – Fri, 9am – 5pm WAT",
   },
   {
-    icon: <Clock className="w-5 h-5 text-[#D7A441]" />,
+    icon: <Clock className="w-5 h-5 text-[#f7cb06]" />,
     label: "Response Time",
     value: "Within 48 hours",
     sub: "For urgent legal matters, call directly",
@@ -80,7 +80,7 @@ export default function ContactPageContent() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] block mb-5"
+              className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-5"
             >
               Get in Touch
             </motion.span>
@@ -140,7 +140,7 @@ export default function ContactPageContent() {
                       {item.href ? (
                         <a
                           href={item.href}
-                          className="text-sm font-semibold text-[#0068C1] hover:text-[#D7A441] transition-colors"
+                          className="text-sm font-semibold text-[#0068C1] hover:text-[#f7cb06] transition-colors"
                         >
                           {item.value}
                         </a>
@@ -178,7 +178,7 @@ export default function ContactPageContent() {
                       className="flex flex-col items-center justify-center text-center py-12 gap-5"
                     >
                       <div className="w-16 h-16 rounded-full bg-[#0068C1] flex items-center justify-center">
-                        <CheckCircle className="w-8 h-8 text-[#D7A441]" />
+                        <CheckCircle className="w-8 h-8 text-[#f7cb06]" />
                       </div>
                       <h3
                         className="text-2xl text-[#0068C1]"
@@ -298,7 +298,7 @@ export default function ContactPageContent() {
                         disabled={formState === "submitting"}
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.98 }}
-                        className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-[#0068C1] text-white text-sm font-semibold hover:bg-[#174d3d] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200"
+                        className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl bg-[#0068C1] text-white text-sm font-semibold hover:bg-[#0759a1] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200"
                       >
                         {formState === "submitting" ? (
                           <>

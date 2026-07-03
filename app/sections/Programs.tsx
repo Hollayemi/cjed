@@ -64,7 +64,7 @@ export default function Programs() {
               <ul className="flex flex-col gap-1.5">
                 {p.highlights.map((h) => (
                   <li key={h} className="flex items-center gap-2 text-xs text-gray-500">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#D7A441] flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f7cb06] flex-shrink-0" />
                     {h}
                   </li>
                 ))}

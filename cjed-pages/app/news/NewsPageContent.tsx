@@ -87,7 +87,7 @@ export default function NewsPageContent() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] block mb-5"
+              className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-5"
             >
               News & Stories
             </motion.span>
@@ -119,7 +119,7 @@ export default function NewsPageContent() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-[#0068C1]/60 to-[#0068C1]/20" />
                   <div className="absolute top-6 left-6">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#D7A441] text-[#0068C1] text-xs font-bold">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#f7cb06] text-[#0068C1] text-xs font-bold">
                       Featured
                     </span>
                   </div>
@@ -129,7 +129,7 @@ export default function NewsPageContent() {
                     <Badge variant="forest">{featured.category}</Badge>
                   </div>
                   <h2
-                    className="text-2xl lg:text-3xl font-semibold text-[#0068C1] leading-snug group-hover:text-[#174d3d] transition-colors"
+                    className="text-2xl lg:text-3xl font-semibold text-[#0068C1] leading-snug group-hover:text-[#0759a1] transition-colors"
                     style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
                   >
                     {featured.title}

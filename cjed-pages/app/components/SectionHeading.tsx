@@ -33,7 +33,7 @@ export default function SectionHeading({
       {eyebrow && (
         <motion.span
           variants={fadeUp}
-          className={`text-xs font-semibold tracking-[0.15em] uppercase text-[#D7A441]`}
+          className={`text-xs font-semibold tracking-[0.15em] uppercase text-[#f7cb06]`}
         >
           {eyebrow}
         </motion.span>

@@ -75,7 +75,7 @@ export default function ImpactPageContent() {
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
             <motion.span
               variants={fadeUp}
-              className="text-xs font-semibold tracking-widest uppercase text-[#D7A441] block mb-5"
+              className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-5"
             >
               Impact Report
             </motion.span>
@@ -107,10 +107,10 @@ export default function ImpactPageContent() {
               <motion.div
                 key={s.label}
                 variants={fadeUp}
-                className="flex flex-col items-center text-center p-8 rounded-3xl bg-[#0068C1] hover:bg-[#174d3d] transition-colors duration-300"
+                className="flex flex-col items-center text-center p-8 rounded-3xl bg-[#0068C1] hover:bg-[#0759a1] transition-colors duration-300"
               >
                 <div
-                  className="text-4xl lg:text-5xl font-bold text-[#D7A441] mb-2"
+                  className="text-4xl lg:text-5xl font-bold text-[#f7cb06] mb-2"
                   style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
                 >
                   <AnimatedCounter to={s.value} suffix={s.suffix} duration={2200} />
@@ -152,13 +152,13 @@ export default function ImpactPageContent() {
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
-                      className="w-10 h-10 rounded-full bg-white border-2 border-[#0068C1]/20 group-hover:border-[#D7A441] group-hover:bg-[#D7A441] transition-all duration-300 flex items-center justify-center shadow-sm ml-4 mt-1"
+                      className="w-10 h-10 rounded-full bg-white border-2 border-[#0068C1]/20 group-hover:border-[#f7cb06] group-hover:bg-[#f7cb06] transition-all duration-300 flex items-center justify-center shadow-sm ml-4 mt-1"
                     >
                       <span className="w-2 h-2 rounded-full bg-[#0068C1] group-hover:bg-white transition-colors" />
                     </motion.div>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs font-bold text-[#D7A441] tracking-widest uppercase">
+                    <span className="text-xs font-bold text-[#f7cb06] tracking-widest uppercase">
                       {m.year}
                     </span>
                     <h3
@@ -199,7 +199,7 @@ export default function ImpactPageContent() {
                 className="p-8 rounded-3xl bg-[#F5F7F8] border border-gray-100 flex flex-col gap-6"
               >
                 <span
-                  className="text-5xl text-[#D7A441] leading-none"
+                  className="text-5xl text-[#f7cb06] leading-none"
                   style={{ fontFamily: "Georgia, serif" }}
                 >
                   "

@@ -126,7 +126,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
               <Link
                 href={siteConfig.donateLink}
-                className="px-5 py-2.5 rounded-full bg-[#D7A441] text-[#0068C1] text-sm font-semibold hover:bg-[#e8bc6a] active:scale-95 transition-all duration-200"
+                className="px-5 py-2.5 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-semibold hover:bg-[#e8bc6a] active:scale-95 transition-all duration-200"
               >
                 Donate
               </Link>
@@ -183,7 +183,7 @@ export default function Navbar() {
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-gray-100">
                 <Link
                   href={siteConfig.donateLink}
-                  className="px-5 py-3 rounded-full bg-[#D7A441] text-[#0068C1] text-sm font-semibold text-center"
+                  className="px-5 py-3 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-semibold text-center"
                 >
                   Donate
                 </Link>
