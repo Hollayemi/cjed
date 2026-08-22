@@ -24,7 +24,7 @@ const allArticles = [
     date: "April 18, 2025",
     readTime: "3 min read",
     slug: "legal-clinic-suleja",
-    image: "/images/news-4.jpg",
+    image: "/images/news-4.webp",
   },
   {
     id: "5",
@@ -35,7 +35,7 @@ const allArticles = [
     date: "March 30, 2025",
     readTime: "6 min read",
     slug: "senate-committee-memorandum",
-    image: "/images/news-5.jpg",
+    image: "/images/news-5.webp",
   },
   {
     id: "6",
@@ -46,7 +46,7 @@ const allArticles = [
     date: "March 12, 2025",
     readTime: "4 min read",
     slug: "domestic-violence-protection-order",
-    image: "/images/news-6.jpg",
+    image: "/images/news-6.webp",
   },
 ];
 

@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react";
 
-const valueIcons: Record<string, any> = {
+const valueIcons: Record<string, React.ReactNode> = {
   Justice: <Scale />,
   Integrity: <ShieldCheck />,
   Inclusion: <Handshake />,
@@ -26,25 +26,59 @@ export default function About() {
     <section className="py-24 lg:py-32 bg-white">
       <Container>
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-          {/* Left: Visual block */}
+          {/* Left: Visual mosaic */}
           <Reveal>
-            <div className="relative">
-              {/* Main image placeholder with layered design */}
-              <div className="relative rounded-3xl overflow-hidden bg-[#0068C1] aspect-[4/5] max-w-lg">
-                <img
-                  src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80"
-                  alt="Legal aid and community support"
-                  className="w-full h-full object-cover mix-blend-luminosity opacity-60"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0068C1] via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <p
-                    className="text-white text-lg leading-snug"
-                    style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
-                  >
-                    "Bridging the gap between the law and the people it is meant to protect."
-                  </p>
+            <div className="relative max-w-lg">
+              <div className="grid grid-cols-2 gap-4 h-[420px] sm:h-[520px]">
+                {/* Large breathing photo — spans both rows */}
+                <div className="relative rounded-3xl overflow-hidden row-span-2">
+                  <motion.img
+                    src="/images/image9.webp"
+                    alt="Legal aid and community support"
+                    className="w-full h-full object-cover"
+                    animate={{ scale: [1, 1.08, 1] }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1F2E]/85 via-[#0A1F2E]/5 to-transparent" />
+                  <div className="absolute bottom-5 left-5 right-5">
+                    <p
+                      className="text-white text-base sm:text-lg leading-snug"
+                      style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+                    >
+                      &ldquo;Bridging the gap between the law and the people it is meant to protect.&rdquo;
+                    </p>
+                  </div>
                 </div>
+
+                {/* Top-right photo */}
+                <motion.div
+                  className="relative rounded-2xl overflow-hidden group"
+                  initial={{ opacity: 0, y: -14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.15 }}
+                >
+                  <img
+                    src="/images/rur1.jpg"
+                    alt="Community outreach"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </motion.div>
+
+                {/* Bottom-right photo */}
+                <motion.div
+                  className="relative rounded-2xl overflow-hidden group"
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.25 }}
+                >
+                  <img
+                    src="/images/rur2.jpg"
+                    alt="Capacity building workshop"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </motion.div>
               </div>
 
               {/* Floating reg card */}
@@ -53,7 +87,7 @@ export default function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="absolute -bottom-6 -right-4 lg:-right-8 bg-[#f7cb06] rounded-2xl px-6 py-4 shadow-xl"
+                className="absolute -bottom-6 -left-4 lg:-left-8 bg-[#f7cb06] rounded-2xl px-6 py-4 shadow-xl"
               >
                 <p className="text-[#0068C1] text-xs font-semibold tracking-wider uppercase mb-1">
                   Registration
@@ -67,7 +101,7 @@ export default function About() {
           <div className="flex flex-col gap-10">
             <SectionHeading
               eyebrow="Who We Are"
-              title="Fighting for justice, one community at a time"
+              title="Educating for justice, one community at a time"
               subtitle={siteConfig.mission}
             />
 
@@ -82,7 +116,7 @@ export default function About() {
             </Reveal>
 
             {/* Core Values */}
-            <div>
+            <div className="hidden">
               <Reveal>
                 <h4 className="text-xs font-semibold tracking-widest uppercase text-[#0068C1]/50 mb-5">
                   Core Values

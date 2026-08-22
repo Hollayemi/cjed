@@ -5,6 +5,7 @@ import Container from "@/app/components/Container";
 import SectionHeading from "@/app/components/SectionHeading";
 import Reveal from "@/app/components/Reveal";
 import CTA from "@/app/sections/CTA";
+import GalleryCarousel from "@/app/components/GalleryCarousel";
 import { stagger, fadeUp } from "@/app/data/animation";
 
 const valueColors: Record<string, string> = {
@@ -26,13 +27,13 @@ const team = [
     name: "Esq. Winner Onyibor",
     role: "Associate",
     bio: "Legal scholar and policy advisor specialising in constitutional and human rights law.",
-    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
+    img: "/images/winning.png",
   },
   {
-    name: "Amina Yusuf",
-    role: "Head of Community Programs",
+    name: "Chukwunanu Agwu-Okeh",
+    role: "Esq.",
     bio: "Development practitioner with expertise in grassroots mobilisation across 8 states.",
-    img: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=300&q=80",
+    img: "/images/Chukwunanu.png",
   },
 ];
 
@@ -41,6 +42,18 @@ export default function AboutPageContent() {
     <>
       {/* Hero */}
       <section className="pt-36 pb-24 bg-[#0068C1] relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          animate={{ scale: [1, 1.08, 1] }}
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&q=80"
+            alt="CJED team at work"
+            className="w-full h-full object-cover opacity-[0.18]"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0068C1] via-[#0068C1]/95 to-[#0068C1]" />
         <div className="absolute inset-0 pointer-events-none">
           <div
             className="absolute inset-0 opacity-[0.04]"
@@ -56,7 +69,7 @@ export default function AboutPageContent() {
             variants={stagger}
             initial="hidden"
             animate="visible"
-            className="max-w-3xl"
+            className="max-w-3xl relative"
           >
             <motion.span
               variants={fadeUp}
@@ -81,28 +94,47 @@ export default function AboutPageContent() {
       {/* Mission & Vision */}
       <section className="py-24 bg-white">
         <Container>
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 items-stretch">
             <Reveal>
-              <div className="p-8 lg:p-10 rounded-3xl bg-[#0068C1] text-white">
-                <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-4">
-                  Our Mission
-                </span>
-                <p className="text-white/80 text-base leading-relaxed">{siteConfig.mission}</p>
+              <div className="relative rounded-3xl overflow-hidden h-full min-h-[320px]">
+                <motion.img
+                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80"
+                  alt="CJED legal team collaborating"
+                  className="w-full h-full object-cover absolute inset-0"
+                  animate={{ scale: [1, 1.07, 1] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1F2E]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white/90 text-sm font-medium">
+                    Registered under {siteConfig.registration}
+                  </p>
+                </div>
               </div>
             </Reveal>
-            <Reveal delay={0.1}>
-              <div className="p-8 lg:p-10 rounded-3xl bg-[#F5F7F8] border border-gray-100">
-                <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-4">
-                  Our Vision
-                </span>
-                <p
-                  className="text-[#0068C1] text-xl leading-relaxed"
-                  style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
-                >
-                  {siteConfig.vision}
-                </p>
-              </div>
-            </Reveal>
+            <div className="grid gap-8">
+              <Reveal>
+                <div className="p-8 lg:p-10 rounded-3xl bg-[#0068C1] text-white">
+                  <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-4">
+                    Our Mission
+                  </span>
+                  <p className="text-white/80 text-base leading-relaxed">{siteConfig.mission}</p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <div className="p-8 lg:p-10 rounded-3xl bg-[#F5F7F8] border border-gray-100">
+                  <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-4">
+                    Our Vision
+                  </span>
+                  <p
+                    className="text-[#0068C1] text-xl leading-relaxed"
+                    style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+                  >
+                    {siteConfig.vision}
+                  </p>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </Container>
       </section>
@@ -143,6 +175,49 @@ export default function AboutPageContent() {
         </Container>
       </section>
 
+      {/* Our Work in Photos — breathing carousel */}
+      <section className="py-24 bg-white">
+        <Container>
+          <div className="mb-14">
+            <SectionHeading
+              eyebrow="Behind The Work"
+              title="Our work, in photos"
+              subtitle="From courtroom representation to grassroots workshops — a glimpse into how CJED shows up for the communities we serve."
+              align="center"
+            />
+          </div>
+          <GalleryCarousel
+            slides={[
+              {
+                src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80",
+                caption: "Free legal clinics bringing counsel directly to underserved communities.",
+                location: "Nationwide Outreach",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&q=80",
+                caption: "Training paralegals and community leaders in rights-based advocacy.",
+                location: "Capacity Building",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1591522810850-58128c5fb089?w=1600&q=80",
+                caption: "Establishing university law clinics to train the next generation of advocates.",
+                location: "UNIDEL, Delta State",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80",
+                caption: "Street Law sessions teaching children their rights under the law.",
+                location: "Kuje, Abuja",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=1600&q=80",
+                caption: "Women's rights workshops equipping leaders with legal knowledge.",
+                location: "Enugu State",
+              },
+            ]}
+          />
+        </Container>
+      </section>
+
       {/* Team */}
       <section className="py-24 bg-white">
         <Container>
@@ -167,11 +242,11 @@ export default function AboutPageContent() {
                 transition={{ duration: 0.2 }}
                 className="rounded-3xl overflow-hidden border border-gray-100 group hover:shadow-xl hover:shadow-black/6 transition-shadow duration-300"
               >
-                <div className="h-56 overflow-hidden">
+                <div className="h-80 overflow-hidden">
                   <img
                     src={member.img}
                     alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
                   />
                 </div>
                 <div className="p-6">
@@ -191,7 +266,6 @@ export default function AboutPageContent() {
           </motion.div>
         </Container>
       </section>
-
       <CTA />
     </>
   );

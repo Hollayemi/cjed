@@ -42,14 +42,24 @@ export default function HowWeWork() {
     <section className="py-24 lg:py-32 bg-[#F5F7F8]">
       <Container>
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-          {/* Left sticky heading */}
-          <div className="lg:w-72 flex-shrink-0">
-            <div className="lg:sticky lg:top-32">
+          {/* Left sticky heading + photo */}
+          <div className="lg:w-80 flex-shrink-0">
+            <div className="lg:sticky lg:top-32 flex flex-col gap-8">
               <SectionHeading
                 eyebrow="Our Process"
                 title="How we work"
                 subtitle="A structured approach that ensures every person we serve receives consistent, quality support."
               />
+              <div className="relative rounded-3xl overflow-hidden aspect-[3/4] hidden lg:block shadow-lg shadow-black/5">
+                <motion.img
+                  src="https://images.unsplash.com/photo-1591522810850-58128c5fb089?w=600&q=80"
+                  alt="Community legal workshop"
+                  className="w-full h-full object-cover"
+                  animate={{ scale: [1, 1.06, 1] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0068C1]/50 via-transparent to-transparent" />
+              </div>
             </div>
           </div>
 

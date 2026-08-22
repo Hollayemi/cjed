@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight, Search } from "lucide-react";
+import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 import { siteConfig } from "@/app/config/site";
+import { programs } from "@/app/data/program";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -16,10 +18,24 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+const programImages: Record<string, string> = {
+  "legal-aid": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&q=80",
+  "capacity-building": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=200&q=80",
+  "community-development": "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=200&q=80",
+  "research-policy": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=200&q=80",
+};
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [programsOpen, setProgramsOpen] = useState(false);
   const pathname = usePathname();
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMobileOpen(false);
+  }
 
   // Pages with dark hero backgrounds — navbar can use light text when not scrolled
   const darkHeroPages = ["/about", "/impact"];
@@ -30,10 +46,6 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
 
   // Determine text colours
   const navTextClass = scrolled
@@ -76,20 +88,84 @@ const navLogoClass = isDarkHero && !scrolled
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-lg border-b border-gray-100 shadow-sm"
-            : isDarkHero
-            ? "bg-transparent"
-            : "bg-white/80 backdrop-blur-md border-b border-gray-100/60"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50"
       >
+        {/* Utility bar */}
+        <div className="hidden lg:block bg-[#061620] border-b border-white/5">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="flex items-center justify-between h-9 text-xs">
+              <div className="flex items-center gap-4">
+                <a
+                  href={siteConfig.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="text-white/50 hover:text-[#f7cb06] transition-colors duration-200"
+                >
+                  <FaFacebook className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href={siteConfig.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="text-white/50 hover:text-[#f7cb06] transition-colors duration-200"
+                >
+                  <FaLinkedin className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href={siteConfig.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter / X"
+                  className="text-white/50 hover:text-[#f7cb06] transition-colors duration-200"
+                >
+                  <FaTwitter className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              <div className="flex items-center gap-5">
+                <Link href="/news" className="text-white/60 hover:text-white transition-colors duration-200 font-medium">
+                  News
+                </Link>
+                <Link href="/contact" className="text-white/60 hover:text-white transition-colors duration-200 font-medium">
+                  Contact Us
+                </Link>
+                <span className="w-px h-3.5 bg-white/15" />
+                <Link
+                  href={siteConfig.donateLink}
+                  className="px-4 py-1.5 rounded-md bg-[#0068C1] text-white font-semibold hover:bg-[#0077DD] transition-colors duration-200"
+                >
+                  Donate Now
+                </Link>
+                <button aria-label="Search" className="text-white/50 hover:text-white transition-colors duration-200">
+                  <Search className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main nav row */}
+        <div
+          className={`transition-all duration-300 ${
+            scrolled
+              ? "bg-white/95 backdrop-blur-lg border-b border-gray-100 shadow-sm"
+              : isDarkHero
+              ? "bg-transparent"
+              : "bg-white/80 backdrop-blur-md border-b border-gray-100/60"
+          }`}
+        >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex items-center justify-between py-2 gap-6">
 
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-              <div className="w-20 h-16 rounded-xl overflow-hidden flex-shrink-0 relative">
+            {/* Logo + full name */}
+            <Link href="/" className="flex items-center gap-3 flex-shrink-0 group min-w-0">
+              <motion.div
+                className="w-14 h-14 lg:w-16 lg:h-16 rounded-xl overflow-hidden flex-shrink-0 relative"
+                animate={{ scale: [1, 1.04, 1] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <Image
                   src="/images/logo.png"
                   alt={siteConfig.shortName}
@@ -97,51 +173,107 @@ const navLogoClass = isDarkHero && !scrolled
                   className={`${navLogoClass} object-contain p-1`}
                   onError={() => {}} // silently fallback — div bg-color shows
                 />
-              </div>
-              {/* <div className="flex flex-col">
+              </motion.div>
+              <div className="hidden lg:flex flex-col min-w-0 leading-tight">
                 <span
-                  className={`text-sm font-bold leading-tight tracking-wide transition-colors duration-300 ${logoTextClass}`}
+                  className={`text-base xl:text-lg font-bold tracking-tight transition-colors duration-300 ${logoTextClass}`}
                   style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
                 >
-                  {siteConfig.shortName}
+                  {siteConfig.name}
                 </span>
-                <span className={`text-[10px] leading-none tracking-wide hidden sm:block transition-colors duration-300 ${subTextClass}`}>
-                  {siteConfig.registration}
+                <span className={`text-[11px] tracking-wide transition-colors duration-300 ${subTextClass}`}>
+                  Bridging Law and Community
                 </span>
-              </div> */}
+              </div>
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-0.5">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                    pathname === link.href ? activeClass : navTextClass
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <nav className="hidden lg:flex items-center gap-0.5 flex-shrink-0">
+              {navLinks
+                .filter((l) => l.label !== "Home" && l.label !== "Contact")
+                .map((link) =>
+                link.label === "Programs" ? (
+                  <div
+                    key={link.href}
+                    className="relative"
+                    onMouseEnter={() => setProgramsOpen(true)}
+                    onMouseLeave={() => setProgramsOpen(false)}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                        pathname === link.href ? activeClass : navTextClass
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+
+                    <AnimatePresence>
+                      {programsOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.16 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[560px]"
+                        >
+                          <div className="bg-white rounded-2xl shadow-2xl shadow-black/10 border border-gray-100 p-4 grid grid-cols-2 gap-3">
+                            {programs.map((p) => (
+                              <Link
+                                key={p.id}
+                                href={`/programs#${p.slug}`}
+                                className="group flex items-center gap-3 p-2 rounded-xl hover:bg-[#0068C1]/5 transition-colors duration-200"
+                              >
+                                <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                  <img
+                                    src={programImages[p.id]}
+                                    alt={p.title}
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                  />
+                                </div>
+                                <div className="min-w-0">
+                                  <p className="text-sm font-semibold text-[#111827] group-hover:text-[#0068C1] transition-colors truncate">
+                                    {p.title}
+                                  </p>
+                                  <p className="text-xs text-gray-400 truncate">{p.description}</p>
+                                </div>
+                              </Link>
+                            ))}
+                            <Link
+                              href="/programs"
+                              className="col-span-2 flex items-center justify-center gap-2 mt-1 py-2.5 rounded-xl bg-[#F5F7F8] text-[#0068C1] text-xs font-semibold hover:bg-[#0068C1]/8 transition-colors"
+                            >
+                              View all programs <ArrowUpRight className="w-3.5 h-3.5" />
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                      pathname === link.href ? activeClass : navTextClass
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
             </nav>
 
-            {/* Desktop CTAs */}
-            <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-              <Link
-                href={siteConfig.donateLink}
-                className="px-5 py-2.5 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-semibold hover:bg-[#e8bc6a] active:scale-95 transition-all duration-200"
-              >
-                Donate
-              </Link>
+            {/* Desktop CTA — bordered pill, PartnersGlobal-style */}
+            <div className="hidden lg:flex items-center flex-shrink-0">
               <Link
                 href="/contact"
-                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 active:scale-95 ${
+                className={`px-6 py-2.5 rounded-full text-sm font-semibold border-[1.5px] transition-all duration-200 active:scale-95 ${
                   scrolled
-                    ? "border border-[#0068C1] text-[#0068C1] hover:bg-[#0068C1] hover:text-white"
+                    ? "border-[#0068C1] text-[#0068C1] hover:bg-[#0068C1] hover:text-white"
                     : isDarkHero
-                    ? "border border-white/40 text-white hover:border-white hover:bg-white/10"
-                    : "border border-[#0068C1] text-[#0068C1] hover:bg-[#0068C1] hover:text-white"
+                    ? "border-white/50 text-white hover:border-white hover:bg-white/10"
+                    : "border-[#0068C1] text-[#0068C1] hover:bg-[#0068C1] hover:text-white"
                 }`}
               >
                 Get Legal Help
@@ -157,6 +289,7 @@ const navLogoClass = isDarkHero && !scrolled
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
+        </div>
         </div>
       </motion.header>
 

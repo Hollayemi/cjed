@@ -1,12 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
-import { Scale, GraduationCap, Users, BookOpen } from "lucide-react";
+import { Scale, GraduationCap, Users, BookOpen, MapPin, Calendar } from "lucide-react";
 import { programs } from "@/app/data/program";
+import { initiatives } from "@/app/data/initiative";
 import Container from "@/app/components/Container";
 import SectionHeading from "@/app/components/SectionHeading";
 import Reveal from "@/app/components/Reveal";
 import CTA from "@/app/sections/CTA";
-import { stagger, fadeUp, slideRight } from "@/app/data/animation";
+import { stagger, fadeUp } from "@/app/data/animation";
 
 const iconMap: Record<string, React.ReactNode> = {
   Scale: <Scale className="w-8 h-8" />,
@@ -26,117 +27,132 @@ export default function ProgramsPageContent() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-36 pb-24 bg-[#F5F7F8]">
+      <section className="pt-36 pb-24 bg-[#F5F7F8] overflow-hidden">
         <Container>
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="visible"
-            className="max-w-3xl"
-          >
-            <motion.span
-              variants={fadeUp}
-              className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-5"
+          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              animate="visible"
+              className="max-w-2xl"
             >
-              What We Do
-            </motion.span>
-            <motion.h1
-              variants={fadeUp}
-              className="text-4xl md:text-5xl lg:text-6xl text-[#0068C1] leading-tight mb-6"
-              style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+              <motion.span
+                variants={fadeUp}
+                className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06] block mb-5"
+              >
+                What We Do
+              </motion.span>
+              <motion.h1
+                variants={fadeUp}
+                className="text-4xl md:text-5xl lg:text-6xl text-[#0068C1] leading-tight mb-6"
+                style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+              >
+                Four pillars of justice, education, and empowerment
+              </motion.h1>
+              <motion.p variants={fadeUp} className="text-gray-500 text-lg leading-relaxed">
+                Each program is designed to address a distinct but interconnected dimension of systemic injustice in Nigeria, from courtroom representation to grassroots advocacy.
+              </motion.p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+              className="relative hidden lg:block"
             >
-              Four pillars of justice, education, and empowerment
-            </motion.h1>
-            <motion.p variants={fadeUp} className="text-gray-500 text-lg leading-relaxed">
-              Each program is designed to address a distinct but interconnected dimension of systemic injustice in Nigeria, from courtroom representation to grassroots advocacy.
-            </motion.p>
-          </motion.div>
+              <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-xl shadow-[#0068C1]/10">
+                <motion.img
+                  src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9?w=900&q=80"
+                  alt="CJED programs in action across Nigeria"
+                  className="w-full h-full object-cover"
+                  animate={{ scale: [1, 1.08, 1] }}
+                  transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1F2E]/60 via-transparent to-transparent" />
+              </div>
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl px-5 py-4 shadow-lg border border-gray-100">
+                <p className="text-2xl font-bold text-[#0068C1]" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+                  4+
+                </p>
+                <p className="text-xs text-gray-500">Active programs</p>
+              </div>
+            </motion.div>
+          </div>
         </Container>
       </section>
 
-      {/* Programs detail */}
-      <section className="py-16 bg-white">
+      {/* Recent Initiatives */}
+      <section id="recent-initiatives" className="py-24 bg-[#F5F7F8]">
         <Container>
-          <div className="flex flex-col gap-24">
-            {programs.map((program, i) => (
-              <div
-                key={program.id}
-                id={program.slug}
-                className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
-                  i % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Image */}
-                <Reveal>
-                  <div
-                    className={`relative rounded-3xl overflow-hidden aspect-[4/3] ${
-                      i % 2 === 1 ? "lg:order-2" : ""
-                    }`}
-                  >
-                    <img
-                      src={programImages[i]}
-                      alt={program.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#0068C1]/40 to-transparent" />
-                    <div className="absolute top-6 left-6">
-                      <div className="w-12 h-12 rounded-2xl bg-white/90 text-[#0068C1] flex items-center justify-center shadow-lg">
-                        {iconMap[program.icon]}
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
+          <div className="mb-14">
+            <SectionHeading
+              eyebrow="On The Ground"
+              title="Recent initiatives"
+              subtitle="A look at specific projects and partnerships where our programs came to life in real communities."
+            />
+          </div>
 
-                {/* Content */}
-                <div className={`flex flex-col gap-6 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <Reveal>
-                    <span className="text-xs font-semibold tracking-widest uppercase text-[#f7cb06]">
-                      Program 0{i + 1}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {initiatives.map((init) => (
+              <Reveal key={init.id}>
+                <div className="group bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl hover:shadow-[#0068C1]/6 transition-all duration-300 flex flex-col h-full">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#0A1F2E]">
+                    <img
+                      src={init.image}
+                      alt={init.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-[#f7cb06] text-[#0A1F2E] text-xs font-bold">
+                      {init.category}
                     </span>
-                  </Reveal>
-                  <Reveal delay={0.05}>
-                    <h2
-                      className="text-3xl lg:text-4xl text-[#0068C1] leading-tight"
+                  </div>
+
+                  <div className="flex flex-col gap-4 p-7 flex-1">
+                    <h3
+                      className="text-xl lg:text-2xl text-[#0068C1] leading-tight"
                       style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
                     >
-                      {program.title}
-                    </h2>
-                  </Reveal>
-                  <Reveal delay={0.1}>
-                    <p className="text-gray-500 text-base leading-relaxed">{program.description}</p>
-                  </Reveal>
+                      {init.title}
+                    </h3>
 
-                  <motion.ul
-                    variants={stagger}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="flex flex-col gap-2"
-                  >
-                    {program.highlights.map((h) => (
-                      <motion.li
-                        key={h}
-                        variants={fadeUp}
-                        className="flex items-center gap-3 text-sm text-gray-600"
-                      >
-                        <span className="w-5 h-5 rounded-full bg-[#0068C1]/10 flex items-center justify-center flex-shrink-0">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#0068C1]" />
+                    <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-gray-400">
+                      <span className="inline-flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                        {init.location}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
+                        {init.date}
+                      </span>
+                    </div>
+
+                    <p className="text-gray-500 text-sm leading-relaxed">{init.summary}</p>
+
+                    <ul className="flex flex-col gap-2">
+                      {init.highlights.map((h) => (
+                        <li key={h} className="flex items-start gap-2.5 text-sm text-gray-600">
+                          <span className="w-4 h-4 rounded-full bg-[#0068C1]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#0068C1]" />
+                          </span>
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-100">
+                      {init.partners.map((p) => (
+                        <span
+                          key={p}
+                          className="px-3 py-1 rounded-full bg-[#F5F7F8] text-[#0068C1] text-xs font-medium"
+                        >
+                          {p}
                         </span>
-                        {h}
-                      </motion.li>
-                    ))}
-                  </motion.ul>
-
-                  <Reveal delay={0.2}>
-                    <a
-                      href="/contact"
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#0068C1] text-[#0068C1] text-sm font-semibold hover:bg-[#0068C1] hover:text-white transition-all duration-200 w-fit mt-2"
-                    >
-                      Get involved with this program
-                    </a>
-                  </Reveal>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Container>

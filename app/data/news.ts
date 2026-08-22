@@ -8,7 +8,7 @@ export const newsArticles = [
     date: "June 12, 2025",
     readTime: "4 min read",
     slug: "landmark-ruling-displaced-families",
-    image: "/images/news-1.jpg",
+    image: "/images/news-1.webp",
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ export const newsArticles = [
     date: "May 28, 2025",
     readTime: "3 min read",
     slug: "200-community-leaders-training",
-    image: "/images/news-2.jpg",
+    image: "/images/news-2.webp",
   },
   {
     id: "3",
@@ -30,15 +30,15 @@ export const newsArticles = [
     date: "May 5, 2025",
     readTime: "5 min read",
     slug: "justice-gap-rural-nigeria",
-    image: "/images/news-3.jpg",
+    image: "/images/news-3.webp",
   },
 ];
 
 export const partners = [
-  { name: "UNDP Nigeria", logo: "/logos/undp.svg" },
-  { name: "Legal Aid Council", logo: "/logos/lac.svg" },
-  { name: "Open Society Initiative", logo: "/logos/osi.svg" },
-  { name: "NBA Foundation", logo: "/logos/nba.svg" },
-  { name: "NJI", logo: "/logos/nji.svg" },
-  { name: "MacArthur Foundation", logo: "/logos/macarthur.svg" },
+  { name: "HILARY IBEGBULEM FOUNDATION", logo: "/logos/undp.svg" },
+  { name: "Baze University", logo: "/logos/lac.svg" },
+  { name: "Human Rights Law", logo: "/logos/osi.svg" },
+  { name: "University of Delta (UNIDEL)", logo: "/logos/nba.svg" },
+  { name: "Clinical legal education (CLE)", logo: "/logos/nji.svg" },
+  // { name: "MacArthur Foundation", logo: "/logos/macarthur.svg" },
 ];

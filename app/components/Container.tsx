@@ -15,7 +15,7 @@ export default function Container({ children, className, size = "xl" }: Containe
   };
 
   return (
-    <div className={`mx-auto px-6 lg:px-8 w-full ${sizes[size]} ${className || ""}`}>
+    <div className={`mx-auto px-2 md:px-6 lg:px-8 w-full ${sizes[size]} ${className || ""}`}>
       {children}
     </div>
   );

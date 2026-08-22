@@ -10,6 +10,20 @@ import { stagger, fadeUp } from "@/app/data/animation";
 export default function Impact() {
   return (
     <section className="py-24 lg:py-32 bg-[#0068C1] relative overflow-hidden">
+      {/* Breathing background photo */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{ scale: [1, 1.08, 1] }}
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <img
+          src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=1600&q=80"
+          alt="Community workshop"
+          className="w-full h-full object-cover opacity-[0.16]"
+        />
+      </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0068C1] via-[#0068C1]/95 to-[#0068C1]" />
+
       {/* Background texture */}
       <div className="absolute inset-0 pointer-events-none">
         <div

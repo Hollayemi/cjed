@@ -11,13 +11,15 @@ export default function FeaturedInitiative() {
       <Container>
         <div className="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-black/5">
           {/* Image side */}
-          <div className="relative min-h-[340px] lg:min-h-[500px] bg-[#0068C1]">
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80"
+          <div className="relative min-h-[340px] lg:min-h-[500px] bg-[#0068C1] overflow-hidden">
+            <motion.img
+              src="/images/image4.webp"
               alt="Community legal outreach session"
-              className="w-full h-full object-cover mix-blend-luminosity opacity-50 absolute inset-0"
+              className="w-full h-full object-cover absolute inset-0"
+              animate={{ scale: [1, 1.07, 1] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0068C1]/80 to-[#0068C1]/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0068C1]/90 via-[#0068C1]/10 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-[#0068C1]/25" />
             <div className="absolute bottom-8 left-8">
               <Badge variant="gold">Featured Initiative</Badge>
             </div>

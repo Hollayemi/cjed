@@ -4,7 +4,6 @@ import { stats } from "@/app/data/stat";
 import AnimatedCounter from "@/app/components/AnimatedCounter";
 import Container from "@/app/components/Container";
 import SectionHeading from "@/app/components/SectionHeading";
-import Reveal from "@/app/components/Reveal";
 import CTA from "@/app/sections/CTA";
 import { stagger, fadeUp } from "@/app/data/animation";
 
@@ -31,29 +30,14 @@ const testimonials = [
 
 const milestones = [
   {
-    year: "2020",
+    year: "2025",
     title: "Founded",
     description: "CJED incorporated and begins operations from Abuja with a team of five advocates.",
   },
   {
-    year: "2021",
-    title: "First Major Case",
-    description: "Secured acquittal for 12 wrongly detained individuals in landmark criminal case.",
-  },
-  {
-    year: "2022",
-    title: "Expanded Reach",
-    description: "Extended outreach to 18 states through mobile legal clinic partnerships.",
-  },
-  {
-    year: "2023",
-    title: "Policy Milestone",
-    description: "Research brief cited in National Assembly debate on access to justice bill.",
-  },
-  {
-    year: "2024",
+    year: "2026",
     title: "5,000 Citizens",
-    description: "Reached our five-thousandth beneficiary — a widow from rural Katsina.",
+    description: "Reached our five-thousandth beneficiary —KNOSK Charity School at Kuje, Abuja.",
   },
 ];
 
