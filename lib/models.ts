@@ -48,6 +48,8 @@ const schemas: Record<ResourceKey, Schema> = {
       location: { type: String, trim: true, default: "" },
       startDate: { type: Date, default: null },
       endDate: { type: Date, default: null },
+      highlights: { type: [String], default: [] },
+      partners: { type: [String], default: [] },
     },
     { timestamps: true },
   ),

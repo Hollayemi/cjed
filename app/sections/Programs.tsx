@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { programs } from "@/app/data/program";
-import { initiatives } from "@/app/data/initiative";
+import type { ProgramCard } from "@/lib/public-content";
 import SectionHeading from "@/app/components/SectionHeading";
 import Container from "@/app/components/Container";
 import { stagger, fadeUp } from "@/app/data/animation";
@@ -50,7 +50,7 @@ const programIcons = [
   <Lightbulb key="bulb" className="w-4 h-4" />,
 ];
 
-export default function Programs() {
+export default function Programs({ initiatives }: { initiatives: ProgramCard[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -117,7 +117,7 @@ export default function Programs() {
               viewport={{ once: true, margin: "-60px" }}
               className="grid md:grid-cols-2 lg:grid-cols-2 gap-4"
             >
-              {initiatives.map((init, index) => (
+              {initiatives.slice(0, 4).map((init) => (
                 <motion.div
                   key={init.id}
                   variants={fadeUp}
@@ -129,7 +129,7 @@ export default function Programs() {
                   
                   <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden flex-shrink-0">
                     <motion.img
-                      src={init.image}
+                      src={init.image || "/images/image1.webp"}
                       alt={init.title}
                       className="w-full h-full object-cover"
                       whileHover={{ scale: 1.1 }}
@@ -151,11 +151,17 @@ export default function Programs() {
                       </span>
                     </div>
                     <h4 className="text-sm font-bold text-[#111827] leading-snug line-clamp-2 group-hover:text-[#0068C1] transition-colors">
-                      {init.title}
+                      {init.hasPage ? (
+                        <Link href={`/programs/${init.slug}`} className="after:absolute after:inset-0">
+                          {init.title}
+                        </Link>
+                      ) : (
+                        init.title
+                      )}
                     </h4>
                     <span className="inline-flex items-center gap-1 text-xs text-gray-400 truncate">
                       <MapPin className="w-3 h-3 flex-shrink-0 text-[#0068C1]" />
-                      <span className="truncate">{init.location.split(",")[0]}</span>
+                      <span className="truncate">{(init.location.split(",")[0] || "Nigeria")}</span>
                     </span>
                     
                     <motion.div
@@ -163,7 +169,7 @@ export default function Programs() {
                       initial={{ x: -5 }}
                       whileHover={{ x: 0 }}
                     >
-                      Read story <ChevronRight className="w-3 h-3" />
+                      {init.hasPage ? <>Read more <ChevronRight className="w-3 h-3" /></> : null}
                     </motion.div>
                   </div>
                 </motion.div>

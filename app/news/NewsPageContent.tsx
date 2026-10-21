@@ -3,52 +3,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Clock, Search } from "lucide-react";
 import Link from "next/link";
-import { newsArticles } from "@/app/data/news";
+import type { NewsCard } from "@/lib/public-content";
 import Container from "@/app/components/Container";
 import SectionHeading from "@/app/components/SectionHeading";
 import Badge from "@/app/components/Badge";
 import Reveal from "@/app/components/Reveal";
 import CTA from "@/app/sections/CTA";
 import { stagger, fadeUp } from "@/app/data/animation";
-
-const categories = ["All", "Legal Aid", "Capacity Building", "Policy", "Community"];
-
-const allArticles = [
-  ...newsArticles,
-  {
-    id: "4",
-    category: "Community",
-    title: "Free Legal Clinic Draws Record 400 Attendees in Suleja",
-    excerpt:
-      "CJED's mobile legal clinic in Niger State attracted its largest crowd yet, with over 400 community members seeking advice on land rights, family law, and tenancy disputes.",
-    date: "April 18, 2025",
-    readTime: "3 min read",
-    slug: "legal-clinic-suleja",
-    image: "/images/news-4.webp",
-  },
-  {
-    id: "5",
-    category: "Policy",
-    title: "CJED Submits Memorandum to Senate Committee on Access to Justice",
-    excerpt:
-      "Our research team submitted a comprehensive memorandum to the Senate Committee on Judiciary, Human Rights and Legal Matters, urging structural reforms to the legal aid system.",
-    date: "March 30, 2025",
-    readTime: "6 min read",
-    slug: "senate-committee-memorandum",
-    image: "/images/news-5.webp",
-  },
-  {
-    id: "6",
-    category: "Legal Aid",
-    title: "Domestic Violence Survivor Wins Protection Order After CJED Intervention",
-    excerpt:
-      "A mother of three from Nasarawa State received a court protection order after CJED's lawyers represented her case pro bono, setting a critical precedent for domestic abuse survivors.",
-    date: "March 12, 2025",
-    readTime: "4 min read",
-    slug: "domestic-violence-protection-order",
-    image: "/images/news-6.webp",
-  },
-];
 
 const articleImages = [
   "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=600&q=80",
@@ -59,11 +20,12 @@ const articleImages = [
   "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80",
 ];
 
-export default function NewsPageContent() {
+export default function NewsPageContent({ articles }: { articles: NewsCard[] }) {
+  const categories = ["All", ...Array.from(new Set(articles.map((a) => a.category)))];
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filtered = allArticles.filter((a) => {
+  const filtered = articles.filter((a) => {
     const matchCat = activeCategory === "All" || a.category === activeCategory;
     const matchSearch =
       searchQuery === "" ||
@@ -72,7 +34,7 @@ export default function NewsPageContent() {
     return matchCat && matchSearch;
   });
 
-  const featured = allArticles[0];
+  const featured = articles[0];
 
   return (
     <>
@@ -113,7 +75,7 @@ export default function NewsPageContent() {
               <div className="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-black/8 transition-shadow duration-500">
                 <div className="relative h-72 lg:h-auto min-h-[320px] bg-[#0068C1] overflow-hidden">
                   <img
-                    src={articleImages[0]}
+                    src={featured.image || articleImages[0]}
                     alt={featured.title}
                     className="w-full h-full object-cover mix-blend-luminosity opacity-50 group-hover:scale-105 transition-transform duration-700 absolute inset-0"
                   />
@@ -209,7 +171,7 @@ export default function NewsPageContent() {
                   >
                     <div className="relative h-48 bg-[#0068C1]/8 overflow-hidden">
                       <img
-                        src={articleImages[i % articleImages.length]}
+                        src={article.image || articleImages[i % articleImages.length]}
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

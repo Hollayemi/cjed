@@ -3,7 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { models } from "@/lib/models";
 import { validate } from "@/lib/validation";
-import { isId, slugify, toDates, uniqueSlug } from "@/lib/content";
+import { isId, revalidateContent, slugify, toDates, uniqueSlug } from "@/lib/content";
 import { isResourceKey } from "@/lib/resource-config";
 
 type Ctx = { params: Promise<{ resource: string; id: string }> };
@@ -45,6 +45,7 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
   if (data.status === "published" && !existing.publishedAt) data.publishedAt = new Date();
 
   const item = await Model.findByIdAndUpdate(id, data, { new: true, runValidators: true }).select("-__v").lean();
+  revalidateContent(resource);
   return NextResponse.json({ item });
 }
 
@@ -57,5 +58,6 @@ export async function DELETE(req: NextRequest, { params }: Ctx) {
 
   await connectDB();
   const deleted = await models[resource].findByIdAndDelete(id);
+  if (deleted) revalidateContent(resource);
   return deleted ? NextResponse.json({ ok: true }) : notFound();
 }

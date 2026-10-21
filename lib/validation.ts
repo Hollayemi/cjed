@@ -3,6 +3,16 @@ import type { ResourceKey } from "./resource-config";
 
 const text = (max: number) => z.string().trim().max(max).default("");
 
+// "lines" fields arrive from the form as one string, one entry per line. Store them as a clean list.
+const lines = (maxItems: number, maxLength: number) =>
+  z
+    .union([z.string(), z.array(z.string())])
+    .default("")
+    .transform((v) =>
+      (Array.isArray(v) ? v : v.split(/\r?\n/)).map((line) => line.trim()).filter(Boolean).slice(0, maxItems),
+    )
+    .refine((list) => list.every((line) => line.length <= maxLength), `Keep each line under ${maxLength} characters`);
+
 const dateString = z
   .string()
   .default("")
@@ -13,6 +23,7 @@ const common = {
   slug: text(200),
   summary: text(500),
   body: text(50_000),
+  // Filled by the Cloudinary uploader (an https:// link). Older items may still hold a /path.
   // Only http(s) URLs or site-relative paths: blocks javascript:/data: URLs.
   coverImage: z
     .string()
@@ -32,6 +43,8 @@ export const schemas: Record<ResourceKey, z.ZodObject> = {
     location: text(160),
     startDate: dateString,
     endDate: dateString,
+    highlights: lines(10, 200),
+    partners: lines(10, 120),
   }),
   stories: z.object({ ...common, author: text(120), location: text(160) }),
 };

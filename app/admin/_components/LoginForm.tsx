@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const input =
-  "mt-1 block w-full rounded-md border border-[#C9CEC6] bg-white px-3 py-2.5 text-sm outline-none focus:border-[#B7791F] focus:ring-2 focus:ring-[#B7791F]/30";
+  "mt-1 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/25";
 
 export default function LoginForm({ next }: { next: string }) {
   const router = useRouter();
@@ -28,7 +28,6 @@ export default function LoginForm({ next }: { next: string }) {
         return;
       }
       const data = await res.json().catch(() => ({}));
-      console.log(data)
       setError(data.error ?? "Could not sign in. Try again.");
     } catch {
       setError("Network problem. Check your connection and try again.");
@@ -38,8 +37,8 @@ export default function LoginForm({ next }: { next: string }) {
 
   return (
     <form onSubmit={onSubmit} className="w-full max-w-sm">
-      <h2 className="text-2xl font-semibold tracking-tight">Sign in</h2>
-      <p className="mt-1 text-sm text-[#14232B]/70">Admins only.</p>
+      <h2 className="text-3xl text-brand">Sign in</h2>
+      <p className="mt-1 text-sm text-ink/70">Admins only.</p>
 
       <label htmlFor="email" className="mt-8 block text-sm font-medium">
         Email
@@ -52,7 +51,7 @@ export default function LoginForm({ next }: { next: string }) {
       <input id="password" name="password" type="password" autoComplete="current-password" required className={input} />
 
       {error && (
-        <p role="alert" className="mt-4 rounded-md bg-[#F8E5E3] px-3 py-2 text-sm text-[#8A2A22]">
+        <p role="alert" className="mt-4 rounded-lg bg-[#F8E5E3] px-3 py-2 text-sm text-[#8A2A22]">
           {error}
         </p>
       )}
@@ -60,7 +59,7 @@ export default function LoginForm({ next }: { next: string }) {
       <button
         type="submit"
         disabled={busy}
-        className="mt-6 w-full rounded-md bg-[#14232B] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#1f3640] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B7791F] disabled:opacity-60"
+        className="mt-6 w-full rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-brand/20 hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:opacity-60"
       >
         {busy ? "Signing in…" : "Sign in"}
       </button>

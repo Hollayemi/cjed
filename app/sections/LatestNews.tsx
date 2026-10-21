@@ -2,20 +2,26 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Clock } from "lucide-react";
 import Link from "next/link";
-import { newsArticles } from "@/app/data/news";
+import type { NewsCard } from "@/lib/public-content";
 import SectionHeading from "@/app/components/SectionHeading";
 import Container from "@/app/components/Container";
 import Badge from "@/app/components/Badge";
 import { stagger, fadeUp } from "@/app/data/animation";
 
-export default function LatestNews() {
+const fallbackImages = [
+  "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=500&q=80",
+  "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&q=80",
+  "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&q=80",
+];
+
+export default function LatestNews({ articles }: { articles: NewsCard[] }) {
   return (
     <section className="py-24 lg:py-32 bg-white">
       <Container>
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
           <SectionHeading
             eyebrow="Latest News"
-            title="Stories from the field"
+            title="Latest from CJED"
             subtitle="Updates on our work, impact stories, and advocacy in action."
           />
           <Link
@@ -33,7 +39,7 @@ export default function LatestNews() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid md:grid-cols-3 gap-6"
         >
-          {newsArticles.map((article, i) => (
+          {articles.slice(0, 3).map((article, i) => (
             <motion.div
               key={article.id}
               variants={fadeUp}
@@ -43,13 +49,7 @@ export default function LatestNews() {
               {/* Image */}
               <div className="relative h-52 bg-[#0068C1]/8 overflow-hidden">
                 <img
-                  src={
-                    i === 0
-                      ? "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=500&q=80"
-                      : i === 1
-                      ? "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&q=80"
-                      : "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&q=80"
-                  }
+                  src={article.image || fallbackImages[i % fallbackImages.length]}
                   alt={article.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

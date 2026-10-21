@@ -3,7 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { models } from "@/lib/models";
 import { validate } from "@/lib/validation";
-import { slugify, toDates, uniqueSlug } from "@/lib/content";
+import { revalidateContent, slugify, toDates, uniqueSlug } from "@/lib/content";
 import { isResourceKey } from "@/lib/resource-config";
 
 type Ctx = { params: Promise<{ resource: string }> };
@@ -58,5 +58,6 @@ export async function POST(req: NextRequest, { params }: Ctx) {
   if (data.status === "published") data.publishedAt = new Date();
 
   const item = await models[resource].create(data);
+  revalidateContent(resource);
   return NextResponse.json({ item }, { status: 201 });
 }

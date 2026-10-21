@@ -2,31 +2,34 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { RESOURCE_KEYS, RESOURCES } from "@/lib/resource-config";
+import { BookHeart, HandHeart, LayoutDashboard, Newspaper } from "lucide-react";
+import { RESOURCE_KEYS, RESOURCES, type ResourceKey } from "@/lib/resource-config";
+
+const icons: Record<ResourceKey, typeof Newspaper> = { news: Newspaper, programs: HandHeart, stories: BookHeart };
 
 const links = [
-  { href: "/admin", label: "Dashboard" },
-  ...RESOURCE_KEYS.map((key) => ({ href: `/admin/${key}`, label: RESOURCES[key].label })),
+  { href: "/admin", label: "Dashboard", Icon: LayoutDashboard },
+  ...RESOURCE_KEYS.map((key) => ({ href: `/admin/${key}`, label: RESOURCES[key].label, Icon: icons[key] })),
 ];
 
 export default function AdminNav() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Admin" className="flex flex-wrap gap-1 md:flex-col">
-      {links.map((l) => {
-        const active = l.href === "/admin" ? pathname === "/admin" : pathname.startsWith(l.href);
+    <nav aria-label="Admin" className="flex gap-1 overflow-x-auto md:flex-col">
+      {links.map(({ href, label, Icon }) => {
+        const active = href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
         return (
           <Link
-            key={l.href}
-            href={l.href}
+            key={href}
+            href={href}
             aria-current={active ? "page" : undefined}
-            className={`rounded-md border-l-2 px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-[#B7791F] ${
+            className={`flex items-center gap-3 rounded-lg border-l-4 px-3 py-2.5 text-sm whitespace-nowrap focus-visible:outline-2 focus-visible:outline-gold ${
               active
-                ? "border-[#B7791F] bg-[#F4F5F2] font-medium"
-                : "border-transparent text-[#14232B]/70 hover:bg-[#F4F5F2]"
+                ? "border-gold bg-white/15 font-semibold text-white"
+                : "border-transparent text-white/75 hover:bg-white/10 hover:text-white"
             }`}
           >
-            {l.label}
+            <Icon className={`size-4 ${active ? "text-gold" : ""}`} /> {label}
           </Link>
         );
       })}

@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { LogOut } from "lucide-react";
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -18,9 +19,9 @@ export default function LogoutButton() {
     <button
       onClick={logout}
       disabled={busy}
-      className="mt-2 rounded-md border border-[#C9CEC6] px-3 py-1.5 text-sm hover:bg-[#F4F5F2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B7791F] disabled:opacity-60"
+      className="mt-2 inline-flex items-center gap-2 rounded-lg border border-white/30 px-3 py-1.5 text-sm text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold disabled:opacity-60"
     >
-      {busy ? "Signing out…" : "Sign out"}
+      <LogOut className="size-4" /> {busy ? "Signing out…" : "Sign out"}
     </button>
   );
 }

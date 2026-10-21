@@ -9,6 +9,11 @@ import FeaturedInitiative from "@/app/sections/FeaturedInitiative";
 import LatestNews from "@/app/sections/LatestNews";
 import Partners from "@/app/sections/Partners";
 import CTA from "@/app/sections/CTA";
+import Stories from "@/app/sections/Stories";
+import { getNewsCards, getProgramCards, getStoryCards } from "@/lib/content";
+
+// Rebuilt at most once a minute; saving in the admin refreshes it immediately.
+export const revalidate = 60;
 
 const title = "Legal Aid, Human Rights & Access to Justice in Nigeria";
 const description =
@@ -37,16 +42,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const [programs, news, stories] = await Promise.all([getProgramCards(4), getNewsCards(3), getStoryCards(3)]);
   return (
     <HomeWrapper>
       <Hero />
       <About />
-      <Programs />
+      <Programs initiatives={programs} />
       {/* <Impact /> */}
       {/* <FeaturedInitiative /> */}
       <HowWeWork />
-      <LatestNews />
+      <LatestNews articles={news} />
+      <Stories stories={stories} />
       <Partners />
       <CTA />
     </HomeWrapper>

@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import { Scale, GraduationCap, Users, BookOpen, MapPin, Calendar } from "lucide-react";
 import { programs } from "@/app/data/program";
-import { initiatives } from "@/app/data/initiative";
+import Link from "next/link";
+import type { ProgramCard } from "@/lib/public-content";
 import Container from "@/app/components/Container";
 import SectionHeading from "@/app/components/SectionHeading";
 import Reveal from "@/app/components/Reveal";
@@ -23,7 +24,7 @@ const programImages = [
   "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80",
 ];
 
-export default function ProgramsPageContent() {
+export default function ProgramsPageContent({ initiatives }: { initiatives: ProgramCard[] }) {
   return (
     <>
       {/* Hero */}
@@ -95,10 +96,10 @@ export default function ProgramsPageContent() {
           <div className="grid lg:grid-cols-2 gap-8">
             {initiatives.map((init) => (
               <Reveal key={init.id}>
-                <div className="group bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl hover:shadow-[#0068C1]/6 transition-all duration-300 flex flex-col h-full">
+                <div className="group relative bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl hover:shadow-[#0068C1]/6 transition-all duration-300 flex flex-col h-full">
                   <div className="relative aspect-[4/3] overflow-hidden bg-[#0A1F2E]">
                     <img
-                      src={init.image}
+                      src={init.image || "/images/image1.webp"}
                       alt={init.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -113,18 +114,28 @@ export default function ProgramsPageContent() {
                       className="text-xl lg:text-2xl text-[#0068C1] leading-tight"
                       style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
                     >
-                      {init.title}
+                      {init.hasPage ? (
+                        <Link href={`/programs/${init.slug}`} className="hover:underline after:absolute after:inset-0">
+                          {init.title}
+                        </Link>
+                      ) : (
+                        init.title
+                      )}
                     </h3>
 
                     <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-gray-400">
-                      <span className="inline-flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                        {init.location}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
-                        {init.date}
-                      </span>
+                      {init.location && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                          {init.location}
+                        </span>
+                      )}
+                      {init.date && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
+                          {init.date}
+                        </span>
+                      )}
                     </div>
 
                     <p className="text-gray-500 text-sm leading-relaxed">{init.summary}</p>

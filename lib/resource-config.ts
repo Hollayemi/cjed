@@ -1,5 +1,5 @@
 // Client-safe description of the three content types. Drives the admin form and table.
-export type FieldType = "text" | "textarea" | "date" | "select";
+export type FieldType = "text" | "textarea" | "date" | "select" | "image" | "lines";
 
 export type Field = {
   name: string;
@@ -37,9 +37,9 @@ const body = f({
 });
 const coverImage = f({
   name: "coverImage",
-  label: "Cover image URL",
-  type: "text",
-  hint: "A full https:// link, or a path such as /images/photo.jpg.",
+  label: "Cover image",
+  type: "image",
+  hint: "Upload a JPG, PNG or WebP up to 8 MB. Landscape photos look best.",
 });
 const status = f({
   name: "status",
@@ -56,6 +56,8 @@ export const RESOURCES = {
   news: {
     label: "News",
     singular: "news post",
+    appearsOn: "News page and the “Latest news” section on the home page",
+    publicPath: "/news",
     fields: [
       title,
       f({ name: "category", label: "Category", type: "text", half: true }),
@@ -70,13 +72,29 @@ export const RESOURCES = {
   programs: {
     label: "Programs",
     singular: "program",
+    appearsOn: "Programs page (“Recent initiatives”) and the programs section on the home page",
+    publicPath: "/programs",
     fields: [
       title,
       f({ name: "category", label: "Category", type: "text", half: true }),
       f({ name: "location", label: "Location", type: "text", half: true }),
       f({ name: "startDate", label: "Starts", type: "date", half: true }),
-      f({ name: "endDate", label: "Ends", type: "date", half: true }),
+      f({ name: "endDate", label: "Ends", type: "date", half: true, hint: "Leave blank if it is still running." }),
       summary,
+      f({
+        name: "highlights",
+        label: "Highlights",
+        type: "lines",
+        rows: 4,
+        hint: "One highlight per line. Shown as a bullet list on the program card.",
+      }),
+      f({
+        name: "partners",
+        label: "Partners",
+        type: "lines",
+        rows: 3,
+        hint: "One partner per line. Shown as small tags on the program card.",
+      }),
       body,
       coverImage,
       slug,
@@ -86,6 +104,8 @@ export const RESOURCES = {
   stories: {
     label: "Stories",
     singular: "story",
+    appearsOn: "Stories page and the “Stories from the field” section on the home page",
+    publicPath: "/stories",
     fields: [
       title,
       f({ name: "author", label: "Told by", type: "text", half: true }),
@@ -97,8 +117,14 @@ export const RESOURCES = {
       status,
     ],
   },
-} satisfies Record<string, { label: string; singular: string; fields: Field[] }>;
+} satisfies Record<
+  string,
+  { label: string; singular: string; appearsOn: string; publicPath: string; fields: Field[] }
+>;
 
 export type ResourceKey = keyof typeof RESOURCES;
 export const RESOURCE_KEYS = Object.keys(RESOURCES) as ResourceKey[];
 export const isResourceKey = (v: string): v is ResourceKey => Object.hasOwn(RESOURCES, v);
+
+/** Where an item lives on the public site, e.g. /news/my-post. */
+export const publicUrl = (resource: ResourceKey, slug: string) => `${RESOURCES[resource].publicPath}/${slug}`;

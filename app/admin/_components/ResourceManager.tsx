@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { RESOURCES, type Field, type ResourceKey } from "@/lib/resource-config";
+import Link from "next/link";
+import { ExternalLink, ImageIcon, Plus, Search, X } from "lucide-react";
+import { RESOURCES, publicUrl, type Field, type ResourceKey } from "@/lib/resource-config";
+import ImageUploader from "./ImageUploader";
 
 type Item = {
   _id: string;
@@ -14,8 +17,8 @@ type Item = {
 };
 
 const control =
-  "mt-1 block w-full rounded-md border border-[#C9CEC6] bg-white px-3 py-2 text-sm outline-none focus:border-[#B7791F] focus:ring-2 focus:ring-[#B7791F]/30";
-const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B7791F]";
+  "mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/25";
+const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 const date = (iso: string) =>
   new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
@@ -89,7 +92,14 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
     const values: Record<string, string> = {};
     for (const f of fields) {
       const raw = item?.[f.name];
-      values[f.name] = raw == null ? "" : f.type === "date" ? String(raw).slice(0, 10) : String(raw);
+      values[f.name] =
+        raw == null
+          ? ""
+          : Array.isArray(raw)
+            ? raw.join("\n")
+            : f.type === "date"
+              ? String(raw).slice(0, 10)
+              : String(raw);
     }
     if (!item) values.status = "draft";
     setForm(values);
@@ -159,28 +169,36 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
 
   return (
     <div className="mx-auto max-w-5xl">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight">{cfg.label}</h1>
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl text-brand">{cfg.label}</h1>
+          <p className="mt-1 max-w-xl text-sm text-ink/65">
+            Published {cfg.label.toLowerCase()} appear on the {cfg.appearsOn}.
+          </p>
+        </div>
         <button
           onClick={() => openForm()}
-          className={`rounded-md bg-[#14232B] px-4 py-2 text-sm font-medium text-white hover:bg-[#1f3640] ${focus}`}
+          className={`inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-brand/20 hover:bg-brand-dark ${focus}`}
         >
-          Add {cfg.singular}
+          <Plus className="size-4" /> Add {cfg.singular}
         </button>
       </header>
 
       <div className="mt-6 flex flex-wrap gap-3">
-        <input
-          type="search"
-          value={q}
-          onChange={(e) => {
-            setQ(e.target.value);
-            setPage(1);
-          }}
-          placeholder="Search by title"
-          aria-label={`Search ${cfg.label.toLowerCase()} by title`}
-          className={`${control} mt-0 max-w-xs`}
-        />
+        <div className="relative w-full max-w-xs">
+          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-ink/40" />
+          <input
+            type="search"
+            value={q}
+            onChange={(e) => {
+              setQ(e.target.value);
+              setPage(1);
+            }}
+            placeholder="Search by title"
+            aria-label={`Search ${cfg.label.toLowerCase()} by title`}
+            className={`${control} mt-0 pl-9`}
+          />
+        </div>
         <select
           value={status}
           onChange={(e) => {
@@ -207,9 +225,9 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
         </p>
       )}
 
-      <div className="mt-4 overflow-x-auto rounded-lg border border-[#D9DDD6] bg-white">
+      <div className="mt-4 overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
         <table className="w-full min-w-[34rem] text-left text-sm">
-          <thead className="border-b border-[#D9DDD6] text-[#14232B]/60">
+          <thead className="border-b border-gray-200 bg-mist text-xs tracking-wide text-ink/60 uppercase">
             <tr>
               <th className="px-4 py-3 font-medium">Title</th>
               <th className="px-4 py-3 font-medium">Status</th>
@@ -217,17 +235,17 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
               <th className="px-4 py-3 text-right font-medium">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E6E9E3]">
+          <tbody className="divide-y divide-gray-100">
             {loading && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-[#14232B]/60">
+                <td colSpan={4} className="px-4 py-8 text-center text-ink/60">
                   Loading…
                 </td>
               </tr>
             )}
             {!loading && items.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-10 text-center text-[#14232B]/70">
+                <td colSpan={4} className="px-4 py-10 text-center text-ink/70">
                   {filtering
                     ? "Nothing matches that search."
                     : `No ${cfg.label.toLowerCase()} yet. Use “Add ${cfg.singular}” to create the first one.`}
@@ -237,21 +255,42 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
             {items.map((item) => (
               <tr key={item._id}>
                 <td className="px-4 py-3">
-                  <p className="font-medium">{item.title}</p>
-                  <p className="text-xs text-[#14232B]/50">/{item.slug}</p>
+                  <div className="flex items-center gap-3">
+                    {typeof item.coverImage === "string" && item.coverImage ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={item.coverImage} alt="" className="size-12 flex-shrink-0 rounded-lg bg-mist object-cover" />
+                    ) : (
+                      <span className="grid size-12 flex-shrink-0 place-items-center rounded-lg bg-mist text-ink/30">
+                        <ImageIcon className="size-5" />
+                      </span>
+                    )}
+                    <div className="min-w-0">
+                      <p className="font-medium">{item.title}</p>
+                      <p className="truncate text-xs text-ink/50">{publicUrl(resource, item.slug)}</p>
+                    </div>
+                  </div>
                 </td>
                 <td className="px-4 py-3">
                   <span
                     className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                      item.status === "published" ? "bg-[#E3F0E8] text-[#2F6B4F]" : "bg-[#ECEEE9] text-[#5A6A70]"
+                      item.status === "published" ? "bg-[#E3F0E8] text-[#2F6B4F]" : "bg-gray-100 text-gray-600"
                     }`}
                   >
                     {item.status === "published" ? "Published" : "Draft"}
                   </span>
                 </td>
-                <td className="px-4 py-3 whitespace-nowrap text-[#14232B]/70">{date(item.updatedAt)}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-ink/70">{date(item.updatedAt)}</td>
                 <td className="px-4 py-3 text-right whitespace-nowrap">
-                  <button onClick={() => edit(item)} className={`rounded px-2 py-1 font-medium hover:bg-[#F4F5F2] ${focus}`}>
+                  {item.status === "published" && (
+                    <Link
+                      href={publicUrl(resource, item.slug)}
+                      target="_blank"
+                      className={`inline-flex items-center gap-1 rounded px-2 py-1 font-medium text-brand hover:bg-brand/8 ${focus}`}
+                    >
+                      View <ExternalLink className="size-3" />
+                    </Link>
+                  )}
+                  <button onClick={() => edit(item)} className={`rounded px-2 py-1 font-medium hover:bg-mist ${focus}`}>
                     Edit
                   </button>
                   <button
@@ -272,17 +311,17 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
           <button
             disabled={page <= 1}
             onClick={() => setPage(page - 1)}
-            className={`rounded-md border border-[#C9CEC6] bg-white px-3 py-1.5 disabled:opacity-40 ${focus}`}
+            className={`rounded-md border border-gray-300 bg-white px-3 py-1.5 disabled:opacity-40 ${focus}`}
           >
             Previous
           </button>
-          <span className="text-[#14232B]/70">
+          <span className="text-ink/70">
             Page {page} of {pages}
           </span>
           <button
             disabled={page >= pages}
             onClick={() => setPage(page + 1)}
-            className={`rounded-md border border-[#C9CEC6] bg-white px-3 py-1.5 disabled:opacity-40 ${focus}`}
+            className={`rounded-md border border-gray-300 bg-white px-3 py-1.5 disabled:opacity-40 ${focus}`}
           >
             Next
           </button>
@@ -291,7 +330,7 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
 
       {panel && (
         <div
-          className="fixed inset-0 z-10 flex bg-[#14232B]/50"
+          className="fixed inset-0 z-10 flex bg-brand-deep/60"
           onMouseDown={(e) => e.target === e.currentTarget && setPanel(null)}
         >
           <form
@@ -302,10 +341,15 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
             aria-label={panel.id ? `Edit ${cfg.singular}` : `Add ${cfg.singular}`}
             className="ml-auto flex h-full w-full max-w-xl flex-col bg-white shadow-xl"
           >
-            <div className="flex items-center justify-between border-b border-[#D9DDD6] px-6 py-4">
-              <h2 className="text-lg font-semibold">{panel.id ? `Edit ${cfg.singular}` : `Add ${cfg.singular}`}</h2>
-              <button type="button" onClick={() => setPanel(null)} className={`rounded px-2 py-1 text-sm ${focus}`}>
-                Close
+            <div className="flex items-center justify-between border-b-4 border-gold bg-brand px-6 py-4 text-white">
+              <h2 className="text-xl">{panel.id ? `Edit ${cfg.singular}` : `Add ${cfg.singular}`}</h2>
+              <button
+                type="button"
+                onClick={() => setPanel(null)}
+                aria-label="Close"
+                className="rounded-lg p-1.5 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-white"
+              >
+                <X className="size-5" />
               </button>
             </div>
 
@@ -313,11 +357,18 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
               <div className="grid gap-4 sm:grid-cols-2">
                 {fields.map((f) => (
                   <div key={f.name} className={f.half ? "" : "sm:col-span-2"}>
-                    <label htmlFor={`f-${f.name}`} className="text-sm font-medium">
+                    <label htmlFor={`f-${f.name}`} className="text-sm font-semibold text-brand-deep">
                       {f.label}
                       {f.required && <span className="text-[#8A2A22]"> *</span>}
                     </label>
-                    {f.type === "textarea" ? (
+                    {f.type === "image" ? (
+                      <ImageUploader
+                        id={`f-${f.name}`}
+                        resource={resource}
+                        value={form[f.name] ?? ""}
+                        onChange={(url) => setForm((cur) => ({ ...cur, [f.name]: url }))}
+                      />
+                    ) : f.type === "textarea" || f.type === "lines" ? (
                       <textarea
                         id={`f-${f.name}`}
                         rows={f.rows ?? 4}
@@ -352,14 +403,14 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
                         {fieldErrors[f.name]}
                       </p>
                     ) : (
-                      f.hint && <p className="mt-1 text-xs text-[#14232B]/55">{f.hint}</p>
+                      f.hint && <p className="mt-1 text-xs text-ink/55">{f.hint}</p>
                     )}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="border-t border-[#D9DDD6] px-6 py-4">
+            <div className="border-t border-gray-200 px-6 py-4">
               {formError && (
                 <p role="alert" className="mb-3 text-sm text-[#8A2A22]">
                   {formError}
@@ -369,14 +420,14 @@ export default function ResourceManager({ resource }: { resource: ResourceKey })
                 <button
                   type="button"
                   onClick={() => setPanel(null)}
-                  className={`rounded-md border border-[#C9CEC6] px-4 py-2 text-sm ${focus}`}
+                  className={`rounded-md border border-gray-300 px-4 py-2 text-sm ${focus}`}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className={`rounded-md bg-[#14232B] px-4 py-2 text-sm font-medium text-white hover:bg-[#1f3640] disabled:opacity-60 ${focus}`}
+                  className={`rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-brand/20 hover:bg-brand-dark disabled:opacity-60 ${focus}`}
                 >
                   {saving ? "Saving…" : panel.id ? "Save changes" : `Create ${cfg.singular}`}
                 </button>
