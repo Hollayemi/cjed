@@ -95,7 +95,7 @@ export default function Programs() {
             <SectionHeading
               eyebrow="Our Mission in Action"
               title="Programs that change lives"
-              subtitle="Four pillars of intervention designed to address systemic injustice at every level of Nigerian society."
+              // subtitle="Four pillars of intervention designed to address systemic injustice at every level of Nigerian society."
             />
             <motion.div
               whileHover={{ scale: 1.05 }}

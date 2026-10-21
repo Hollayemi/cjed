@@ -44,7 +44,7 @@ export default function Home() {
       <About />
       <Programs />
       {/* <Impact /> */}
-      <FeaturedInitiative />
+      {/* <FeaturedInitiative /> */}
       <HowWeWork />
       <LatestNews />
       <Partners />

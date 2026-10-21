@@ -18,21 +18,21 @@ const valueColors: Record<string, string> = {
 
 const team = [
   {
-    name: "Sunday Kenechukwu Agwu",
+    name: "Dr. Sunday Kenechukwu Agwu Esq.",
     role: "Executive Director",
-    bio: "Ph.D.",
+    bio: "",
     img: "/images/team1.jpg",
   },
   {
-    name: "Esq. Winner Onyibor",
-    role: "Associate",
-    bio: "Legal scholar and policy advisor specialising in constitutional and human rights law.",
-    img: "/images/winning.png",
+    name: "Winnie Eka Williams Esq.",
+    role: "Program Officer",
+    // bio: "Legal scholar and policy advisor specialising in constitutional and human rights law.",
+    img: "/images/winnie.jpg",
   },
   {
-    name: "Chukwunanu Agwu-Okeh",
-    role: "Esq.",
-    bio: "Development practitioner with expertise in grassroots mobilisation across 8 states.",
+    name: "Chukwunanu Agwu-Okeh Esq.",
+    role: "Head of Legal",
+    // bio: "Development practitioner with expertise in grassroots mobilisation across 8 states.",
     img: "/images/Chukwunanu.png",
   },
 ];
@@ -223,7 +223,7 @@ export default function AboutPageContent() {
         <Container>
           <SectionHeading
             eyebrow="Our Team"
-            title="Led by experienced advocates"
+            title="Meet The Team"
             subtitle="Our leadership brings together decades of legal, policy, and community development expertise."
             className="mb-16"
           />

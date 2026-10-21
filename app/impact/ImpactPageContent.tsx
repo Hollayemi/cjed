@@ -108,7 +108,7 @@ export default function ImpactPageContent() {
       </section>
 
       {/* Milestones */}
-      <section className="py-24 bg-[#F5F7F8]">
+      <section className="py-24 bg-[#F5F7F8] hidden">
         <Container>
           <SectionHeading
             eyebrow="Our Journey"
@@ -186,7 +186,7 @@ export default function ImpactPageContent() {
                   className="text-5xl text-[#f7cb06] leading-none"
                   style={{ fontFamily: "Georgia, serif" }}
                 >
-                  "
+                  
                 </span>
                 <p
                   className="text-[#0068C1] text-base leading-relaxed -mt-4 flex-1"

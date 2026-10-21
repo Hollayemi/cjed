@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Centre for Justice, Education & Development",
   about: "The Centre for Justice, Education and Development (CJED) is a nonprofit organization dedicated to advancing social justice, human rights, and the rule of law in Nigeria through the provision of legal aid and counseling to indigent and marginalized persons, capacity building for legal professionals and community leaders, research and policy advocacy on critical legal and social issues, and community development initiatives that empower underserved populations. We achieve this by bridging the gap between the law and the people it is meant to protect.",
   shortName: "CJED",
-  registration: "CTE - 8625097",
+  registration: "GTE - 8625097",
   email: "centreforjustice.edudev@gmail.com",
   phone: "+234 816 472 4362",
   address: "Abuja, Nigeria",

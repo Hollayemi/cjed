@@ -47,10 +47,10 @@ export default function ProgramsPageContent() {
                 className="text-4xl md:text-5xl lg:text-6xl text-[#0068C1] leading-tight mb-6"
                 style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
               >
-                Four pillars of justice, education, and empowerment
+                Justice Education: One Citizen At A Time
               </motion.h1>
               <motion.p variants={fadeUp} className="text-gray-500 text-lg leading-relaxed">
-                Each program is designed to address a distinct but interconnected dimension of systemic injustice in Nigeria, from courtroom representation to grassroots advocacy.
+                Providing legal aid, educating citizens and equiping stakeholders.
               </motion.p>
             </motion.div>
 
