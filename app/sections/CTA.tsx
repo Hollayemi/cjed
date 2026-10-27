@@ -1,12 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { siteConfig } from "@/app/config/site";
 import Container from "@/app/components/Container";
 import Reveal from "@/app/components/Reveal";
+import { useGetInvolved } from "@/app/components/forms/GetInvolved";
 import { stagger, fadeUp } from "@/app/data/animation";
 
 export default function CTA() {
+  const { open } = useGetInvolved();
+
   return (
     <section className="py-24 lg:py-32 bg-white">
       <Container>
@@ -57,28 +58,31 @@ export default function CTA() {
               className="flex flex-wrap gap-4 justify-center"
             >
               <motion.div variants={fadeUp}>
-                <Link
-                  href={siteConfig.volunteerLink}
+                <button
+                  type="button"
+                  onClick={() => open("volunteer")}
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-bold hover:bg-[#e8bc6a] active:scale-[0.97] transition-all duration-200"
                 >
                   Volunteer
-                </Link>
+                </button>
               </motion.div>
               <motion.div variants={fadeUp}>
-                <Link
-                  href={siteConfig.partnerLink}
+                <button
+                  type="button"
+                  onClick={() => open("partner")}
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-white/30 text-white text-sm font-bold hover:border-white hover:bg-white/10 active:scale-[0.97] transition-all duration-200"
                 >
                   Partner with Us
-                </Link>
+                </button>
               </motion.div>
               <motion.div variants={fadeUp}>
-                <Link
-                  href={siteConfig.donateLink}
+                <button
+                  type="button"
+                  onClick={() => open("donate")}
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/12 text-white text-sm font-bold hover:bg-white/20 active:scale-[0.97] transition-all duration-200"
                 >
                   Donate
-                </Link>
+                </button>
               </motion.div>
             </motion.div>
           </div>

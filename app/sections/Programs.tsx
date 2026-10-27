@@ -1,181 +1,95 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { 
-  Scale, 
-  GraduationCap, 
-  Users, 
-  BookOpen, 
-  ArrowUpRight, 
-  MapPin, 
-  Sparkles,
-  TrendingUp,
-  Shield,
-  Lightbulb,
-  Heart,
-  Award,
-  Clock,
-  ChevronRight,
-  ExternalLink
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Calendar, MapPin } from "lucide-react";
 import Link from "next/link";
-import { programs } from "@/app/data/program";
 import type { ProgramCard } from "@/lib/public-content";
 import SectionHeading from "@/app/components/SectionHeading";
 import Container from "@/app/components/Container";
+import Badge from "@/app/components/Badge";
 import { stagger, fadeUp } from "@/app/data/animation";
-import { useRef } from "react";
 
-const iconMap: Record<string, React.ReactNode> = {
-  Scale: <Scale className="w-5 h-5" />,
-  GraduationCap: <GraduationCap className="w-5 h-5" />,
-  Users: <Users className="w-5 h-5" />,
-  BookOpen: <BookOpen className="w-5 h-5" />,
-};
-
-const imageMap: Record<string, string> = {
-  "legal-aid":
-    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&q=80",
-  "capacity-building":
-    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&q=80",
-  "community-development":
-    "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=500&q=80",
-  "research-policy":
-    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80",
-};
-
-const programIcons = [
-  <Shield key="shield" className="w-4 h-4" />,
-  <TrendingUp key="trend" className="w-4 h-4" />,
-  <Heart key="heart" className="w-4 h-4" />,
-  <Lightbulb key="bulb" className="w-4 h-4" />,
-];
+const serif = { fontFamily: "'DM Serif Display', Georgia, serif" };
 
 export default function Programs({ initiatives }: { initiatives: ProgramCard[] }) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-  
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 1, 0.4]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
+  const items = initiatives.slice(0, 4);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-gradient-to-b from-[#F5F7F8] via-white to-[#F5F7F8] relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
-          className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-[#0068C1]/5 blur-3xl"
-          animate={{ scale: [1, 1.3, 1], rotate: [0, 90, 0] }}
-          transition={{ duration: 20, repeat: Infinity }}
-        />
-        <motion.div 
-          className="absolute bottom-20 -left-20 w-64 h-64 rounded-full bg-[#f7cb06]/10 blur-3xl"
-          animate={{ scale: [1, 1.2, 1], rotate: [0, -90, 0] }}
-          transition={{ duration: 25, repeat: Infinity }}
-        />
-      </div>
-
+    <section className="py-24 lg:py-32 bg-[#F5F7F8]">
       <Container>
-        <motion.div
-          style={{ opacity, scale }}
-          className="relative z-10"
-        >
-      
-
-          {/* Recent initiatives strip - Enhanced */}
-          <motion.div 
-            className="mt-16 pt-12 border-t border-gray-200/50"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-14">
+          <SectionHeading
+            eyebrow="Our Mission in Action"
+            title="Programs that change lives"
+            subtitle="Recent work from our legal aid, training and community programs across Nigeria."
+          />
+          <Link
+            href="/programs"
+            className="inline-flex flex-shrink-0 items-center gap-2 self-start lg:self-auto px-6 py-3 bg-[#0068C1] text-white rounded-full text-sm font-semibold hover:bg-[#0759a1] active:scale-[0.97] transition-all shadow-lg shadow-[#0068C1]/20 group"
           >
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
-            <SectionHeading
-              eyebrow="Our Mission in Action"
-              title="Programs that change lives"
-              // subtitle="Four pillars of intervention designed to address systemic injustice at every level of Nigerian society."
-            />
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            Explore all programs
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </Link>
+        </div>
+
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid md:grid-cols-2 gap-6"
+        >
+          {items.map((init) => (
+            <motion.article
+              key={init.id}
+              variants={fadeUp}
+              className="group relative flex flex-col sm:flex-row overflow-hidden rounded-3xl border border-gray-100 bg-white hover:border-[#0068C1]/20 hover:shadow-xl hover:shadow-[#0068C1]/6 transition-all duration-300"
             >
-              <Link
-                href="/programs"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#0068C1] text-white rounded-full text-sm font-semibold hover:bg-[#0054a0] transition-colors shadow-lg shadow-[#0068C1]/20 group"
-              >
-                Explore all programs 
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </Link>
-            </motion.div>
-          </div>
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              className="grid md:grid-cols-2 lg:grid-cols-2 gap-4"
-            >
-              {initiatives.slice(0, 4).map((init) => (
-                <motion.div
-                  key={init.id}
-                  variants={fadeUp}
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  className="group bg-white rounded-2xl overflow-hidden flex items-center gap-5 p-4 border border-gray-100/50 hover:border-[#0068C1]/20 hover:shadow-xl hover:shadow-[#0068C1]/5 transition-all duration-300 relative"
-                >
-                  {/* Color accent */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#0068C1] to-[#f7cb06] rounded-l-2xl" />
-                  
-                  <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden flex-shrink-0">
-                    <motion.img
-                      src={init.image || "/images/image1.webp"}
-                      alt={init.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.4 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    <div className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                      <Award className="w-3 h-3 text-white" />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5 min-w-0 py-1 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold tracking-wider uppercase text-[#f7cb06] px-2 py-0.5 rounded-full bg-[#0A1F2E]/5 border border-[#f7cb06]/20">
-                        {init.category}
-                      </span>
-                      <span className="text-[10px] text-gray-400 flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {init.date.includes("Ongoing") ? "Ongoing" : "Recent"}
-                      </span>
-                    </div>
-                    <h4 className="text-sm font-bold text-[#111827] leading-snug line-clamp-2 group-hover:text-[#0068C1] transition-colors">
-                      {init.hasPage ? (
-                        <Link href={`/programs/${init.slug}`} className="after:absolute after:inset-0">
-                          {init.title}
-                        </Link>
-                      ) : (
-                        init.title
-                      )}
-                    </h4>
-                    <span className="inline-flex items-center gap-1 text-xs text-gray-400 truncate">
-                      <MapPin className="w-3 h-3 flex-shrink-0 text-[#0068C1]" />
-                      <span className="truncate">{(init.location.split(",")[0] || "Nigeria")}</span>
+              <div className="relative sm:w-2/5 flex-shrink-0 aspect-[16/10] sm:aspect-auto sm:min-h-full overflow-hidden bg-[#0A1F2E]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={init.image || "/images/image1.webp"}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col gap-3 p-6">
+                <div>
+                  <Badge variant="forest">{init.category}</Badge>
+                </div>
+                <h3 className="text-lg text-[#0068C1] leading-snug line-clamp-3" style={serif}>
+                  {init.hasPage ? (
+                    <Link href={`/programs/${init.slug}`} className="hover:underline after:absolute after:inset-0">
+                      {init.title}
+                    </Link>
+                  ) : (
+                    init.title
+                  )}
+                </h3>
+                <div className="flex flex-col gap-1.5 text-xs text-gray-400">
+                  {init.location && (
+                    <span className="inline-flex items-start gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 mt-px flex-shrink-0 text-[#0068C1]" />
+                      <span className="line-clamp-1">{init.location}</span>
                     </span>
-                    
-                    <motion.div
-                      className="mt-1 flex items-center gap-1 text-xs font-medium text-[#0068C1] opacity-0 group-hover:opacity-100 transition-opacity"
-                      initial={{ x: -5 }}
-                      whileHover={{ x: 0 }}
-                    >
-                      {init.hasPage ? <>Read more <ChevronRight className="w-3 h-3" /></> : null}
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
+                  )}
+                  {init.date && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 flex-shrink-0 text-[#0068C1]" />
+                      {init.date}
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">{init.summary}</p>
+                {init.hasPage && (
+                  <span className="mt-auto pt-2 inline-flex items-center gap-1 text-xs font-semibold text-[#0068C1] group-hover:gap-2 transition-all">
+                    Read more <ArrowUpRight className="w-3.5 h-3.5" />
+                  </span>
+                )}
+              </div>
+            </motion.article>
+          ))}
         </motion.div>
       </Container>
     </section>

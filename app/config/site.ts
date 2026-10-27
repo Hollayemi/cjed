@@ -52,7 +52,10 @@ export const siteConfig = {
   facebook: "https://facebook.com",
   twitter: "https://twitter.com",
   linkedin: "https://linkedin.com",
-  donateLink: "#donate",
-  volunteerLink: "#volunteer",
-  partnerLink: "#partner",
+  // Shown in the Donate popup.
+  donation: {
+    bankName: "Providus Bank",
+    accountNumber: "1309173408",
+    accountName: "Centre for Justice Education and Development (CJED)",
+  },
 };

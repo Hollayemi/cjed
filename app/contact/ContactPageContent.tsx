@@ -7,6 +7,7 @@ import Container from "@/app/components/Container";
 import SectionHeading from "@/app/components/SectionHeading";
 import Reveal from "@/app/components/Reveal";
 import { stagger, fadeUp } from "@/app/data/animation";
+import { Field, FormError, Honeypot, inputClass, inputState, postJson } from "@/app/components/FormBits";
 
 type FormState = "idle" | "submitting" | "success";
 
@@ -54,17 +55,36 @@ export default function ContactPageContent() {
     email: "",
     phone: "",
     message: "",
+    website: "", // honeypot
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formError, setFormError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  const handleSubmit = async () => {
-    if (!formData.name || !formData.email || !formData.message) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formState === "submitting") return;
+
+    const next: Record<string, string> = {};
+    if (formData.name.trim().length < 2) next.name = "Enter your full name";
+    if (!/^\S+@\S+\.\S+$/.test(formData.email.trim())) next.email = "Enter a valid email address";
+    if (formData.message.trim().length < 10) next.message = "Please write a little more (at least 10 characters)";
+    setErrors(next);
+    setFormError("");
+    if (Object.keys(next).length) return;
+
     setFormState("submitting");
-    await new Promise((r) => setTimeout(r, 1600));
-    setFormState("success");
+    const result = await postJson("/api/contact", { ...formData, enquiryType: selectedType });
+    if (result.ok) return setFormState("success");
+
+    setFormState("idle");
+    setErrors((prev) => ({ ...prev, ...result.fields }));
+    setFormError(result.error);
   };
 
   return (
@@ -192,7 +212,9 @@ export default function ContactPageContent() {
                       <button
                         onClick={() => {
                           setFormState("idle");
-                          setFormData({ name: "", email: "", phone: "", message: "" });
+                          setFormData({ name: "", email: "", phone: "", message: "", website: "" });
+                          setErrors({});
+                          setFormError("");
                           setSelectedType("");
                         }}
                         className="text-xs font-semibold text-[#0068C1] underline mt-2"
@@ -201,7 +223,8 @@ export default function ContactPageContent() {
                       </button>
                     </motion.div>
                   ) : (
-                    <div className="flex flex-col gap-6">
+                    <form onSubmit={handleSubmit} noValidate className="relative flex flex-col gap-6">
+                      <Honeypot value={formData.website} onChange={(v) => setFormData((p) => ({ ...p, website: v }))} />
                       <div>
                         <h3
                           className="text-xl text-[#0068C1] mb-1"
@@ -214,14 +237,16 @@ export default function ContactPageContent() {
 
                       {/* Enquiry type */}
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                        <p className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
                           I am enquiring about
-                        </label>
+                        </p>
                         <div className="flex flex-wrap gap-2">
                           {enquiryTypes.map((type) => (
                             <button
+                              type="button"
                               key={type.label}
-                              onClick={() => setSelectedType(type.label)}
+                              aria-pressed={selectedType === type.label}
+                              onClick={() => setSelectedType(selectedType === type.label ? "" : type.label)}
                               className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
                                 selectedType === type.label
                                   ? "bg-[#0068C1] text-white"
@@ -237,64 +262,26 @@ export default function ContactPageContent() {
 
                       {/* Fields */}
                       <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="flex flex-col gap-1.5">
-                          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                            Full Name *
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            placeholder="Your full name"
-                            className="px-4 py-3 rounded-xl bg-white border border-gray-200 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-[#0068C1]/50 focus:ring-2 focus:ring-[#0068C1]/8 transition-all"
-                          />
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                            Email Address *
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            placeholder="you@example.com"
-                            className="px-4 py-3 rounded-xl bg-white border border-gray-200 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-[#0068C1]/50 focus:ring-2 focus:ring-[#0068C1]/8 transition-all"
-                          />
-                        </div>
+                        <Field label="Full Name" htmlFor="c-name" required error={errors.name}>
+                          <input id="c-name" type="text" name="name" autoComplete="name" value={formData.name} onChange={handleChange} placeholder="Your full name" maxLength={120} aria-invalid={!!errors.name} className={`${inputClass} ${inputState(errors.name)}`} />
+                        </Field>
+                        <Field label="Email Address" htmlFor="c-email" required error={errors.email}>
+                          <input id="c-email" type="email" name="email" autoComplete="email" value={formData.email} onChange={handleChange} placeholder="you@example.com" maxLength={200} aria-invalid={!!errors.email} className={`${inputClass} ${inputState(errors.email)}`} />
+                        </Field>
                       </div>
 
-                      <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="+234 xxx xxx xxxx"
-                          className="px-4 py-3 rounded-xl bg-white border border-gray-200 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-[#0068C1]/50 focus:ring-2 focus:ring-[#0068C1]/8 transition-all"
-                        />
-                      </div>
+                      <Field label="Phone Number" htmlFor="c-phone" error={errors.phone}>
+                        <input id="c-phone" type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={handleChange} placeholder="+234 xxx xxx xxxx" maxLength={30} aria-invalid={!!errors.phone} className={`${inputClass} ${inputState(errors.phone)}`} />
+                      </Field>
 
-                      <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                          Your Message *
-                        </label>
-                        <textarea
-                          name="message"
-                          value={formData.message}
-                          onChange={handleChange}
-                          rows={5}
-                          placeholder="Briefly describe your situation or enquiry…"
-                          className="px-4 py-3 rounded-xl bg-white border border-gray-200 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-[#0068C1]/50 focus:ring-2 focus:ring-[#0068C1]/8 transition-all resize-none"
-                        />
-                      </div>
+                      <Field label="Your Message" htmlFor="c-message" required error={errors.message}>
+                        <textarea id="c-message" name="message" value={formData.message} onChange={handleChange} rows={5} placeholder="Briefly describe your situation or enquiry…" maxLength={5000} aria-invalid={!!errors.message} className={`${inputClass} ${inputState(errors.message)} resize-none`} />
+                      </Field>
+
+                      <FormError message={formError} />
 
                       <motion.button
-                        onClick={handleSubmit}
+                        type="submit"
                         disabled={formState === "submitting"}
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.98 }}
@@ -321,7 +308,7 @@ export default function ContactPageContent() {
                         Your information is kept strictly confidential and used only to respond to your enquiry.
                         For urgent legal emergencies, please call us directly.
                       </p>
-                    </div>
+                    </form>
                   )}
                 </div>
               </Reveal>
@@ -364,11 +351,11 @@ export default function ContactPageContent() {
               },
               {
                 q: "Do you accept pro-bono lawyers?",
-                a: "Yes, we actively recruit volunteer lawyers and paralegals to expand our service delivery. Contact us with the subject line 'Volunteer'.",
+                a: "Yes, we actively recruit volunteer lawyers and paralegals to expand our service delivery. Use the Volunteer button at the bottom of any page to send us your details and CV.",
               },
               {
                 q: "How do I support CJED financially?",
-                a: "Donations can be made via our donate link. All contributions are acknowledged and used transparently in line with our annual impact reporting.",
+                a: "Use any Donate button on this site to see our Providus Bank account details. All contributions are acknowledged and used transparently in line with our annual impact reporting.",
               },
             ].map((faq) => (
               <motion.div

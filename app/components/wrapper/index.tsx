@@ -1,14 +1,15 @@
 import { ReactNode } from "react"
 import Footer from "./Footer"
 import Navbar from "./Header"
+import { GetInvolvedProvider } from "@/app/components/forms/GetInvolved"
 
 const HomeWrapper = ({ children }: {children: ReactNode}) => {
     return (
-        <div>
+        <GetInvolvedProvider>
             <Navbar />
             {children}
             <Footer />
-        </div>
+        </GetInvolvedProvider>
     )
 }
 

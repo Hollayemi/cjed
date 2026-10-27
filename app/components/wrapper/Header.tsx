@@ -7,7 +7,7 @@ import { Menu, X, ArrowUpRight, Search } from "lucide-react";
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
 import { siteConfig } from "@/app/config/site";
-import { programs } from "@/app/data/program";
+import { useGetInvolved } from "@/app/components/forms/GetInvolved";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -25,6 +25,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [programsOpen, setProgramsOpen] = useState(false);
   const pathname = usePathname();
+  const { open } = useGetInvolved();
   const [prevPathname, setPrevPathname] = useState(pathname);
 
   if (pathname !== prevPathname) {
@@ -127,12 +128,13 @@ const navLogoClass = isDarkHero && !scrolled
                   Contact Us
                 </Link>
                 <span className="w-px h-3.5 bg-white/15" />
-                <Link
-                  href={siteConfig.donateLink}
+                <button
+                  type="button"
+                  onClick={() => open("donate")}
                   className="px-4 py-1.5 rounded-md bg-[#0068C1] text-white font-semibold hover:bg-[#0077DD] transition-colors duration-200"
                 >
                   Donate Now
-                </Link>
+                </button>
                 <button aria-label="Search" className="text-white/50 hover:text-white transition-colors duration-200">
                   <Search className="w-3.5 h-3.5" />
                 </button>
@@ -271,12 +273,16 @@ const navLogoClass = isDarkHero && !scrolled
                 </Link>
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-gray-100">
-                <Link
-                  href={siteConfig.donateLink}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    open("donate");
+                  }}
                   className="px-5 py-3 rounded-full bg-[#f7cb06] text-[#0068C1] text-sm font-semibold text-center"
                 >
                   Donate
-                </Link>
+                </button>
                 <Link
                   href="/contact"
                   className="px-5 py-3 rounded-full border border-[#0068C1] text-[#0068C1] text-sm font-semibold text-center hover:bg-[#0068C1] hover:text-white transition-all duration-200"
