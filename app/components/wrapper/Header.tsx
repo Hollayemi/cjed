@@ -19,12 +19,6 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-const programImages: Record<string, string> = {
-  "legal-aid": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&q=80",
-  "capacity-building": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=200&q=80",
-  "community-development": "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=200&q=80",
-  "research-policy": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=200&q=80",
-};
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -208,48 +202,6 @@ const navLogoClass = isDarkHero && !scrolled
                     >
                       {link.label}
                     </Link>
-
-                    <AnimatePresence>
-                      {programsOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 8 }}
-                          transition={{ duration: 0.16 }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[560px]"
-                        >
-                          <div className="bg-white rounded-2xl shadow-2xl shadow-black/10 border border-gray-100 p-4 grid grid-cols-2 gap-3">
-                            {programs.map((p) => (
-                              <Link
-                                key={p.id}
-                                href={`/programs#${p.slug}`}
-                                className="group flex items-center gap-3 p-2 rounded-xl hover:bg-[#0068C1]/5 transition-colors duration-200"
-                              >
-                                <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative">
-                                  <img
-                                    src={programImages[p.id]}
-                                    alt={p.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                  />
-                                </div>
-                                <div className="min-w-0">
-                                  <p className="text-sm font-semibold text-[#111827] group-hover:text-[#0068C1] transition-colors truncate">
-                                    {p.title}
-                                  </p>
-                                  <p className="text-xs text-gray-400 truncate">{p.description}</p>
-                                </div>
-                              </Link>
-                            ))}
-                            <Link
-                              href="/programs"
-                              className="col-span-2 flex items-center justify-center gap-2 mt-1 py-2.5 rounded-xl bg-[#F5F7F8] text-[#0068C1] text-xs font-semibold hover:bg-[#0068C1]/8 transition-colors"
-                            >
-                              View all programs <ArrowUpRight className="w-3.5 h-3.5" />
-                            </Link>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
                 ) : (
                   <Link
