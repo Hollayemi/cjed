@@ -33,7 +33,7 @@ export default function About() {
                 {/* Large breathing photo — spans both rows */}
                 <div className="relative rounded-3xl overflow-hidden row-span-2">
                   <motion.img
-                    src="/images/image9.webp"
+                    src="/images/h_cjed1.jpg"
                     alt="Legal aid and community support"
                     className="w-full h-full object-cover"
                     animate={{ scale: [1, 1.08, 1] }}

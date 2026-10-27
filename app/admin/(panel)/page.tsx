@@ -6,7 +6,11 @@ import { RESOURCE_KEYS, RESOURCES, type ResourceKey } from "@/lib/resource-confi
 
 export const dynamic = "force-dynamic";
 
-const icons: Record<ResourceKey, typeof Newspaper> = { news: Newspaper, programs: HandHeart, stories: BookHeart };
+const icons: Record<ResourceKey, typeof Newspaper> = {
+  news: Newspaper,
+  programs: HandHeart,
+  stories: BookHeart,
+};
 
 export default async function Dashboard() {
   await connectDB();
@@ -19,53 +23,69 @@ export default async function Dashboard() {
       return { key, published, draft };
     }),
   );
-  const empty = stats.every((s) => s.published + s.draft === 0);
+  const total = stats.reduce((sum, s) => sum + s.published + s.draft, 0);
 
   return (
     <div className="mx-auto max-w-5xl">
-      <p className="text-xs font-semibold tracking-[0.15em] text-gold-deep uppercase">Welcome back</p>
-      <h1 className="mt-1 text-3xl text-brand md:text-4xl">Dashboard</h1>
-      <p className="mt-2 text-sm text-ink/65">
-        {empty
-          ? "Nothing here yet. Open a section to add your first item."
-          : "What is live on the public site and what is still a draft."}
-      </p>
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-gray-200 pb-6">
+        <div>
+          <h1 className="text-2xl text-brand md:text-3xl">Dashboard</h1>
+          <p className="mt-1.5 text-sm text-ink/60">
+            {total === 0
+              ? "No content has been created yet."
+              : `${total} item${total === 1 ? "" : "s"} across ${RESOURCE_KEYS.length} sections.`}
+          </p>
+        </div>
+      </header>
 
-      <ul className="mt-8 grid gap-5 md:grid-cols-3">
+      <ul className="mt-6 grid gap-4 md:grid-cols-3">
         {stats.map(({ key, published, draft }) => {
           const Icon = icons[key];
+          const label = RESOURCES[key].label;
+          const count = published + draft;
+
           return (
             <li
               key={key}
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg hover:shadow-brand/10"
+              className="relative rounded-lg border border-gray-200 bg-white p-5 transition-colors hover:border-gray-300"
             >
-              <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand to-gold" />
-              <div className="flex items-center justify-between">
-                <span className="grid size-10 place-items-center rounded-xl bg-brand/10 text-brand">
-                  <Icon className="size-5" />
-                </span>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="grid size-9 place-items-center rounded-md bg-brand/8 text-brand">
+                    <Icon className="size-4" aria-hidden="true" />
+                  </span>
+                  <h2 className="text-base font-medium text-brand-deep">{label}</h2>
+                </div>
                 <Link
                   href={`/admin/${key}`}
-                  aria-label={`Open ${RESOURCES[key].label}`}
-                  className="rounded-full p-1.5 text-ink/40 hover:bg-mist hover:text-brand focus-visible:outline-2 focus-visible:outline-brand"
+                  aria-label={`Manage ${label}`}
+                  className="-m-1.5 rounded-md p-1.5 text-ink/40 hover:bg-mist hover:text-brand focus-visible:outline-2 focus-visible:outline-brand"
                 >
-                  <ArrowUpRight className="size-5" />
+                  <ArrowUpRight className="size-4" aria-hidden="true" />
                 </Link>
               </div>
-              <h2 className="mt-4 text-xl text-brand-deep">{RESOURCES[key].label}</h2>
-              <p className="mt-3 flex items-baseline gap-2">
-                <span className="text-4xl font-semibold tabular-nums">{published}</span>
-                <span className="text-sm text-ink/65">live</span>
-                <span className="ml-2 text-sm text-ink/65">
-                  · {draft} {draft === 1 ? "draft" : "drafts"}
-                </span>
+
+              <dl className="mt-5 flex items-baseline gap-4 text-sm">
+                <div className="flex items-baseline gap-1.5">
+                  <dd className="text-2xl font-semibold tabular-nums text-ink">{published}</dd>
+                  <dt className="text-ink/55">published</dt>
+                </div>
+                <div className="flex items-baseline gap-1.5">
+                  <dd className="text-2xl font-semibold tabular-nums text-ink/70">{draft}</dd>
+                  <dt className="text-ink/55">{draft === 1 ? "draft" : "drafts"}</dt>
+                </div>
+              </dl>
+
+              <p className="mt-3 text-xs leading-relaxed text-ink/50">
+                Appears on the {RESOURCES[key].appearsOn}.
               </p>
-              <p className="mt-3 min-h-10 text-xs leading-relaxed text-ink/55">Shown on the {RESOURCES[key].appearsOn}.</p>
+
               <Link
                 href={`/admin/${key}`}
-                className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-brand px-3 py-2 text-sm font-semibold text-white hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
-                <Plus className="size-4" /> Manage {RESOURCES[key].label.toLowerCase()}
+                <Plus className="size-3.5" aria-hidden="true" />
+                {count === 0 ? `Add ${label.toLowerCase()}` : `Manage ${label.toLowerCase()}`}
               </Link>
             </li>
           );

@@ -7,6 +7,7 @@ import Reveal from "@/app/components/Reveal";
 import CTA from "@/app/sections/CTA";
 import GalleryCarousel from "@/app/components/GalleryCarousel";
 import { stagger, fadeUp } from "@/app/data/animation";
+import Image from "next/image";
 
 const valueColors: Record<string, string> = {
   Justice: "#0068C1",
@@ -47,8 +48,9 @@ export default function AboutPageContent() {
           animate={{ scale: [1, 1.08, 1] }}
           transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
         >
-          <img
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&q=80"
+          <Image
+            src="/images/h_cjed.jpg"
+            fill
             alt="CJED team at work"
             className="w-full h-full object-cover opacity-[0.18]"
           />
@@ -98,7 +100,7 @@ export default function AboutPageContent() {
             <Reveal>
               <div className="relative rounded-3xl overflow-hidden h-full min-h-[320px]">
                 <motion.img
-                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80"
+                  src="/images/h_cjed1.jpg"
                   alt="CJED legal team collaborating"
                   className="w-full h-full object-cover absolute inset-0"
                   animate={{ scale: [1, 1.07, 1] }}
@@ -189,27 +191,37 @@ export default function AboutPageContent() {
           <GalleryCarousel
             slides={[
               {
-                src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80",
+                src: "/images/cjed2.jpg",
                 caption: "Free legal clinics bringing counsel directly to underserved communities.",
                 location: "Nationwide Outreach",
               },
               {
-                src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&q=80",
+                src: "/images/cjed1.jpg",
                 caption: "Training paralegals and community leaders in rights-based advocacy.",
                 location: "Capacity Building",
               },
               {
-                src: "https://images.unsplash.com/photo-1591522810850-58128c5fb089?w=1600&q=80",
+                src: "/images/cjed3.jpg",
                 caption: "Establishing university law clinics to train the next generation of advocates.",
                 location: "UNIDEL, Delta State",
               },
               {
-                src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80",
+                src: "/images/cjed4.jpg",
                 caption: "Street Law sessions teaching children their rights under the law.",
                 location: "Kuje, Abuja",
               },
               {
-                src: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=1600&q=80",
+                src: "/images/cjed8.jpg",
+                caption: "Women's rights workshops equipping leaders with legal knowledge.",
+                location: "Enugu State",
+              },
+              {
+                src: "/images/cjed6.jpg",
+                caption: "Women's rights workshops equipping leaders with legal knowledge.",
+                location: "Enugu State",
+              },
+              {
+                src: "/images/cjed7.jpg",
                 caption: "Women's rights workshops equipping leaders with legal knowledge.",
                 location: "Enugu State",
               },

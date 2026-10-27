@@ -50,6 +50,10 @@ export default function Footer() {
                 <Phone className="w-4 h-4 text-[#f7cb06]" />
                 {siteConfig.phone}
               </a>
+              <a href={`tel:${siteConfig.phone2}`} className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
+                <Phone className="w-4 h-4 text-[#f7cb06]" />
+                {siteConfig.phone2}
+              </a>
               <span className="flex items-center gap-2 text-sm text-white/60">
                 <MapPin className="w-4 h-4 text-[#f7cb06]" />
                 {siteConfig.address}

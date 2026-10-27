@@ -4,7 +4,8 @@ export const siteConfig = {
   shortName: "CJED",
   registration: "GTE - 8625097",
   email: "centreforjustice.edudev@gmail.com",
-  phone: "+234 816 472 4362",
+  phone: "+234 906 616 9498",
+  phone2: "+234 707 651 1645",
   address: "Abuja, Nigeria",
   url: "https://cenjed.org",
   keywords: [

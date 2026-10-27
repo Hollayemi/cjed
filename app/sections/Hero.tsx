@@ -8,7 +8,15 @@ import HeroCarousel from "@/app/components/HeroCarousel";
 
 const slides = [
   {
-    src: "/images/image1.webp",
+    src: "/images/cjed4.jpg",
+    alt: "Community members CJED serves across Nigeria",
+  },
+  {
+    src: "/images/cjed3.jpg",
+    alt: "Community members CJED serves across Nigeria",
+  },
+  {
+    src: "/images/cjed7.jpg",
     alt: "Community members CJED serves across Nigeria",
   },
   {
